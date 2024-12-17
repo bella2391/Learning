@@ -18,5 +18,9 @@
     "url": "https://github.com/bella2391/Node-Ts-Something/issues"
   },
   "homepage": "https://github.com/bella2391/Node-Ts-Something#readme",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2"
+  }
 }

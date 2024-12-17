@@ -1,1 +1,4 @@
 https://hnavi.co.jp/knowledge/blog/typescript/
+
+# not checked
+https://zenn.dev/uhyo/articles/typescript-module-option
