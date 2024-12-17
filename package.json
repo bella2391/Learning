@@ -1,0 +1,22 @@
+{
+  "name": "node-ts-something",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bella2391/Node-Ts-Something.git"
+  },
+  "keywords": [
+    "fmc"
+  ],
+  "author": "bella",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bella2391/Node-Ts-Something/issues"
+  },
+  "homepage": "https://github.com/bella2391/Node-Ts-Something#readme",
+  "description": ""
+}
