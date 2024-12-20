@@ -1,5 +1,5 @@
 {
-  "name": "node-ts-something",
+  "name": "learning-java-typescript",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bella2391/Node-Ts-Something.git"
+    "url": "git+https://github.com/bella2391/Learning-Java-TypeScript.git"
   },
   "keywords": [
     "fmc"
@@ -18,9 +18,9 @@
   "author": "bella",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/bella2391/Node-Ts-Something/issues"
+    "url": "https://github.com/bella2391/Learning-Java-TypeScript/issues"
   },
-  "homepage": "https://github.com/bella2391/Node-Ts-Something#readme",
+  "homepage": "https://github.com/bella2391/Learning-Java-TypeScript#readme",
   "description": "",
   "devDependencies": {
     "nodemon": "^3.1.9",
