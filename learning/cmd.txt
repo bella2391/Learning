@@ -1,0 +1,2 @@
+# chase code changes and put out them to console
+npm run dev <*.ts>

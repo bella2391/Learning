@@ -1,0 +1,10 @@
+# the main is trying one
+
+# main
+https://hnavi.co.jp/knowledge/blog/typescript/
+
+# chase code changes (pkg: ts-node-dev)
+https://qiita.com/suzuk12345/items/652f19de4c92c58d055d
+
+# not checked
+https://zenn.dev/uhyo/articles/typescript-module-option
