@@ -4,7 +4,9 @@
   "main": "index.js",
   "scripts": {
     "test": "test",
-    "dev": "ts-node-dev --respawn"
+    "dev": "ts-node-dev --respawn",
+    "build": "webpack --mode=development",
+    "start": "webpack serve --mode=development"
   },
   "repository": {
     "type": "git",
@@ -21,8 +23,12 @@
   "homepage": "https://github.com/bella2391/Node-Ts-Something#readme",
   "description": "",
   "devDependencies": {
+    "ts-loader": "^9.5.1",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.2",
+    "webpack": "^5.97.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.2.0"
   }
 }
