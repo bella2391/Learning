@@ -1,7 +1,7 @@
 # the main is trying one
 
 # current main
-https://www.tohoho-web.com/ex/typescript.html
+https://typescriptbook.jp/tutorials/make-a-simple-function-via-cli
 
 # tohoho series
 https://www.tohoho-web.com/ex/nodejs.html
@@ -13,6 +13,8 @@ https://www.typescriptlang.org/docs/handbook/intro.html
 https://hnavi.co.jp/knowledge/blog/typescript/
 # launch node.js webserver with typescript + pkg: express + pkg: webpack
 https://qiita.com/isihigameKoudai/items/4b790b5b2256dec27d1f
+# tohoho series
+https://www.tohoho-web.com/ex/typescript.html
 
 # chase code changes (pkg: ts-node-dev)
 https://qiita.com/suzuk12345/items/652f19de4c92c58d055d

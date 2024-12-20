@@ -21,3 +21,25 @@ let v_enm: Color = Color.Green;
 
 class MyClass { name: String; }
 var val_class: MyClass = new MyClass();
+
+function log(msg: string): void {
+    console.log(msg);
+}
+
+function error(msg: string): never {
+    throw new Error(msg);
+}
+
+// type assertion
+interface Person {
+    name: string;
+    age: number;
+}
+let foo = <Person>{}
+foo.name = 'Yamada';
+let bar = {} as Person
+bar.name = 'Yamada';
+
+// type alias
+type bool = boolean;
+let flag: bool = true;
