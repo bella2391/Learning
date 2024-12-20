@@ -23,6 +23,7 @@
   "homepage": "https://github.com/bella2391/Node-Ts-Something#readme",
   "description": "",
   "devDependencies": {
+    "nodemon": "^3.1.9",
     "ts-loader": "^9.5.1",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",

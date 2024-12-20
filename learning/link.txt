@@ -1,6 +1,8 @@
 # the main is trying one
 
-# main
+# current main
+# launch node.js webserver with typescript + pkg: express + pkg: webpack
+https://qiita.com/isihigameKoudai/items/4b790b5b2256dec27d1f
 
 # official typescript document
 https://www.typescriptlang.org/docs/handbook/intro.html

@@ -1,6 +1,4 @@
-*.js
-!webpack.config.js
-# Quote from https://github.com/github/gitignore/blob/main/Node.gitignore
+# Quotes from https://github.com/github/gitignore/blob/main/Node.gitignore
 # Logs
 logs
 *.log
