@@ -4,9 +4,9 @@ There are other repositories, [Py-Something](https://github.com/bella2391/Py-Som
 <br>
 
 ## Description of each directory
-- learning: 
+- `learning`: 
 Result of reading quoting link or learning cmd.
-- official: 
+- `official`: 
 Result of learning [TypeScript-HandBook](https://www.typescriptlang.org/docs/handbook/intro.html).
-- src: 
+- `src`: 
 Result of learning web development by mainly using pkg: web-pack.
