@@ -1,6 +1,11 @@
 # the main is trying one
 
 # main
+
+# official typescript document
+https://www.typescriptlang.org/docs/handbook/intro.html
+
+# old main
 https://hnavi.co.jp/knowledge/blog/typescript/
 
 # chase code changes (pkg: ts-node-dev)
