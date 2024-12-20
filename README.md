@@ -1,6 +1,6 @@
-# NodeTs-Something
+# Learning-Java-TypeScript
 
-I created this repository simply because I wanted to do something with node.js(main: typescript)!  
+I created this repository simply because I wanted to do something with node.js(main: javascript, typescript)!  
 There are other repositories, [Py-Something](https://github.com/bella2391/Py-Something.git) for learning.  
 
 ## Description of each directory
