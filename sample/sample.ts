@@ -43,3 +43,9 @@ bar.name = 'Yamada';
 // type alias
 type bool = boolean;
 let flag: bool = true;
+
+function increment(num: number) {
+    return num + 1;
+}
+
+console.log(increment(999));
