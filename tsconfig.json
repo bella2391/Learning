@@ -25,5 +25,5 @@
       "*": ["node_modules/*", "src/types/*"]
     }
   },
-  "include": ["src/**/*", "nonts/express", "nonts/http", "nonts/app.js"]
+  "include": ["src/**/*", "nonts/express", "nonts/http", "nonts/app.js", "official/learn.ts"]
 }
