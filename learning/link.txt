@@ -1,8 +1,6 @@
 # the main is trying one
 
 # current main
-# again: tohoho series -nodejs
-https://www.tohoho-web.com/ex/nodejs.html
 
 # official typescript document
 https://www.typescriptlang.org/docs/handbook/intro.html
@@ -17,6 +15,8 @@ https://qiita.com/isihigameKoudai/items/4b790b5b2256dec27d1f
 https://qiita.com/suzuk12345/items/652f19de4c92c58d055d
 # tohoho series -typescript
 https://www.tohoho-web.com/ex/typescript.html
+# again: tohoho series -nodejs
+https://www.tohoho-web.com/ex/nodejs.html
 
 # abandoned
 # survival -typescript -react
