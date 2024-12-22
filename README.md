@@ -1,7 +1,7 @@
 # Learning-Java-TypeScript
 
 I created this repository simply because I wanted to do something with node.js(main: javascript, typescript)!  
-There are other repositories, [Learning-Python](https://github.com/bella2391/Learning-Python.git) for learning.  
+There are other repositories, [Learning-Rust](https://github.com/bella2391/Learning-Rust) for learning.  
 
 ## Description of each directory
 
