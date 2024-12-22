@@ -1,5 +1,5 @@
 # current main
-https://higmasan.com/rust/getting-started-with-web-applications-in-rust-2023-building-development-environment/
+https://qiita.com/NegishiS/items/49c0b006f51c55c1b15b
 
 # old main
 # installing rust
@@ -7,3 +7,7 @@ https://higmasan.com/rust/installing-rust-on-ubuntu-24-04/
 
 # official document transrated japanese
 https://doc.rust-jp.rs/book-ja/
+
+# abandon
+# make web application with docker
+https://higmasan.com/rust/getting-started-with-web-applications-in-rust-2023-building-development-environment/
