@@ -8,6 +8,9 @@ https://zenn.dev/wkb/books/node-tutorial/viewer/todo_02
 # probably next main
 https://qiita.com/suzukiplan/items/9e1bc829c8c1a8df006c
 
+# module: knex official docs
+https://knexjs.org/guide/
+
 # official typescript document
 https://www.typescriptlang.org/docs/handbook/intro.html
 

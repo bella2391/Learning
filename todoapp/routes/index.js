@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const mysql = require('mysql');
+const knex = require('../db/knex');
 
 const conn = mysql.createConnection({
     host: process.env.MYSQL_HOST,
@@ -12,21 +13,21 @@ const conn = mysql.createConnection({
 //let todos = [];
 
 router.get('/', function(req, res, next) {
-    conn.query(
-        `SELECT * FROM tasks;`,
-        (error, results) => {
-            if (error) {
-                console.log(error);
-                return
-            }
-            
+    knex('tasks')
+        .select("*")
+        .then(function (results) {
             console.log(results);
             res.render('index', {
                 title: 'ToDo App',
                 todos: results,
-            })
-        }
-    )
+            });
+        })
+        .catch(function (err) {
+            console.error(err);
+            res.render('index', {
+                title: 'ToDo App',
+            });
+        });
 });
 
 router.post('/', function(req, res, next) {
@@ -38,15 +39,17 @@ router.post('/', function(req, res, next) {
         console.log('mysql connection established!');
     })
     const todo = req.body.add;
-    conn.query(
-        `INSERT INTO tasks (user_id, content) VALUES (1, '${todo}');`,
-        (error, results) => {
-            console.log(error);
+    knex("tasks")
+        .insert({ user_id: 1, content: todo })
+        .then(function () {
             res.redirect('/');
-        }
-    )
-    //todos.push(todo);
-    //res.redirect('/');
+        })
+        .catch(function (err) {
+            console.error(err);
+            res.render('index', {
+                title: 'ToDo App',
+            });
+        })
 });
 
 module.exports = router;
