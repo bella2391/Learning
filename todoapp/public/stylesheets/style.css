@@ -109,10 +109,10 @@ hr {
     color: var(--text-strong);
 }
 
-a {
-    color: #00B7FF;
-}
-
 .error {
     color: red;
+}
+
+.center {
+    text-align: center;
 }
