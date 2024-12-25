@@ -27,6 +27,11 @@ https://www.tohoho-web.com/ex/typescript.html
 # again: tohoho series -nodejs
 https://www.tohoho-web.com/ex/nodejs.html
 
+# sub
+# css custom property for darkmode
+https://zenn.dev/k1350/articles/2e0c165d0cf943
+# >> repo >> https://gitlab.com/k1350/dark_mode_sample
+
 # abandoned
 # survival -typescript -react
 https://typescriptbook.jp/tutorials/make-a-simple-function-via-cli
