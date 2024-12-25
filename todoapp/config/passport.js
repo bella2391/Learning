@@ -4,8 +4,8 @@ const knex = require('../db/knex');
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
 const cookieSession = require('cookie-session');
-//const session = require('express-session');
 const secret = 'secretCuisine123';
+const flash = require('connect-flash');
 
 module.exports = function (app) {
     passport.serializeUser(function(user, done) {
@@ -52,14 +52,23 @@ module.exports = function (app) {
             maxAge: 24 * 60 * 60 * 1000, // 24 hours
         })
     );
-    /*app.use(
-        session({
-            secret: secret,
-            resave: false,
-            saveUninitialised: false,
-            cokkie: { maxAge: 24 * 60 * 60 * 1000 },
-        })
-    );*/
+
+    // register regenerate & save after the cookieSession middleware initialization
+    app.use(function(req, res, next) {
+        if (req.session && !req.session.regenerate) {
+            req.session.regenerate = (cb) => {
+                cb();
+            }
+        }
+        if (req.session && !req.session.save) {
+            req.session.save = (cb) => {
+                cb();
+            }
+        }
+        next();
+    });
+
+    app.use(flash());
 
     app.use(passport.initialize());
     app.use(passport.session());
