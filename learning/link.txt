@@ -31,6 +31,8 @@ https://www.tohoho-web.com/ex/nodejs.html
 # css custom property for darkmode
 https://zenn.dev/k1350/articles/2e0c165d0cf943
 # >> repo >> https://gitlab.com/k1350/dark_mode_sample
+# what is seriarize?
+https://zenn.dev/yutoo89/articles/0c8dad23dccec8
 
 # abandoned
 # survival -typescript -react
