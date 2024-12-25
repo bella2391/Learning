@@ -48,7 +48,7 @@ module.exports = function (app) {
             secret: secret,
             resave: false,
             saveUninitialized: false,
-            cokkie: { maxAge: 24 * 60 * 60 * 1000 },
+            cookie: { maxAge: 24 * 60 * 60 * 1000 },
         })
     );
 

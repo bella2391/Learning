@@ -13,8 +13,7 @@ const conn = mysql.createConnection({
 //let todos = [];
 
 router.get('/', function(req, res, next) {
-    const userId = req.session.userid;
-    const isAuth = Boolean(userId);
+    const isAuth = req.isAuthenticated();
 
     knex('tasks')
         .select("*")
@@ -31,22 +30,14 @@ router.get('/', function(req, res, next) {
             res.render('index', {
                 title: 'ToDo App',
                 isAuth: isAuth,
+                errorMessage: [err.sqlMessage],
             });
         });
 });
 
 router.post('/', function(req, res, next) {
-    const userId = req.session.userid;
-    const isAuth = Boolean(userId);
+    const isAuth = req.isAuthenticated();
     const todo = req.body.add;
-
-    conn.connect(err => {
-        if (err) {
-            console.log('error connecting: ' + err.stack);
-            return
-        }
-        console.log('mysql connection established!');
-    })
 
     knex("tasks")
         .insert({ user_id: 1, content: todo })
@@ -58,6 +49,7 @@ router.post('/', function(req, res, next) {
             res.render('index', {
                 title: 'ToDo App',
                 isAuth: isAuth,
+                errorMessage: [err.sqlMessage],
             });
         })
 });
