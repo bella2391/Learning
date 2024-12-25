@@ -16,22 +16,22 @@ body {
 
 @media (prefers-color-scheme: dark) {
     body {
-        --background-body: #444444;
-        --background-alt: #222222;
-        --text-strong: #ffffff;
-        --text-main: #eeeeee;
-        --text-muted: #aaaaaa;
-        --accent: #d7d742;
-        --focus: #797909;
-        --visited: #00ffff;
+        --background-body: #444444 !important;
+        --background-alt: #222222 !important;
+        --text-strong: #ffffff !important;
+        --text-main: #eeeeee !important;
+        --text-muted: #aaaaaa !important;
+        --accent: #d7d742 !important;
+        --focus: #797909 !important;
+        --visited: #00ffff !important;
     }
 }
 
 body {
-    font-family: sans-serif;
-    margin: 0;
-    background-color: var(--background-body);
-    color: var(--text-main);
+    font-family: sans-serif !important;
+    margin: 0 !important;
+    background-color: var(--background-body) !important;
+    color: var(--text-main) !important;
 }
 
 h1,
@@ -115,8 +115,4 @@ a {
 
 .error {
     color: red;
-}
-
-.right-text {
-    text-align: right;
 }
