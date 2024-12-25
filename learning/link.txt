@@ -3,9 +3,10 @@
 # the final goal is to integrate php web server environment to node one.
 
 # current main
-https://zenn.dev/wkb/books/node-tutorial/viewer/todo_02
 
 # probably next main
+# for current javascript converts to typescript
+# This is because typescript has secure type definition.
 https://qiita.com/suzukiplan/items/9e1bc829c8c1a8df006c
 
 # module: knex official docs
@@ -26,6 +27,8 @@ https://qiita.com/suzuk12345/items/652f19de4c92c58d055d
 https://www.tohoho-web.com/ex/typescript.html
 # again: tohoho series -nodejs
 https://www.tohoho-web.com/ex/nodejs.html
+# create ToDo App
+https://zenn.dev/wkb/books/node-tutorial/viewer/todo_02
 
 # sub
 # css custom property for darkmode
