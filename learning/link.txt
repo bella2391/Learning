@@ -3,11 +3,16 @@
 # the final goal is to integrate php web server environment to node one.
 
 # current main
+# js's express www converts ts one
+https://qiita.com/jumperson/items/e546137f6305ea98a673
+# js knex converts ts one
+https://medium.com/@aashishdhiman88/knex-js-setup-with-mysql-and-typescript-17f35d592c38
 
 # probably next main
-# for current javascript converts to typescript
-# This is because typescript has secure type definition.
-https://qiita.com/suzukiplan/items/9e1bc829c8c1a8df006c
+# follow this link's last line, introducing twitter, discord and so on of authentication by passport module
+https://qiita.com/orange-na/items/1db36160feb40ef5871b
+# microsoft github repo passport facebook authentication
+https://github.com/microsoft/TypeScript-Node-Starter/blob/master/src/config/passport.ts
 
 # module: knex official docs
 https://knexjs.org/guide/
@@ -29,6 +34,10 @@ https://www.tohoho-web.com/ex/typescript.html
 https://www.tohoho-web.com/ex/nodejs.html
 # create ToDo App
 https://zenn.dev/wkb/books/node-tutorial/viewer/todo_02
+# for current javascript converts to typescript
+# This is because typescript has secure type definition.
+# mysql(module: mysql2) js => ts
+https://qiita.com/suzukiplan/items/9e1bc829c8c1a8df006c
 
 # sub
 # css custom property for darkmode
@@ -36,6 +45,12 @@ https://zenn.dev/k1350/articles/2e0c165d0cf943
 # >> repo >> https://gitlab.com/k1350/dark_mode_sample
 # what is seriarize?
 https://zenn.dev/yutoo89/articles/0c8dad23dccec8
+# about ts's ambient declare
+https://gizanbeak.com/post/typescript-declare
+# passport.js => passport.ts(module: passport)
+https://qiita.com/orange-na/items/1db36160feb40ef5871b
+# strategy by passport and create API
+https://twonine.net/blog/javascript/express-web-server-jwt/#toc8
 
 # abandoned
 # survival -typescript -react

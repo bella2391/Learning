@@ -1,27 +1,27 @@
-const express = require('express');
-const router = express.Router();
-const knex = require('../db/knex')
-const bcrypt = require('bcrypt');
+import express, { Request, Response, NextFunction } from 'express';
+import knex from '../db/knex';
+import bcrypt from 'bcrypt';
 
-router.get('/', function(req, res, next) {
+const router: express.Router = express.Router();
+
+router.get('/', (req: Request, res: Response, _: NextFunction) => {
     const isAuth = req.isAuthenticated();
-
     res.render('signup', {
         title: 'Sign up',
         isAuth: isAuth,
     });
 });
 
-router.post('/', function(req, res, next) {
-    const isAuth = req.isAuthenticated();
-    const username = req.body.username;
-    const password = req.body.password;
-    const repassword = req.body.repassword;
+router.post('/', (req: Request, res: Response, _: NextFunction) => {
+    const isAuth: boolean = req.isAuthenticated();
+    const username: string = req.body.username;
+    const password: string = req.body.password;
+    const repassword: string = req.body.repassword;
 
     knex("users")
         .where({ name: username })
         .select("*")
-        .then(async function(result) {
+        .then(async (result) => {
             if (result.length !== 0) {
                 res.render("signup", {
                     title: "Sign up",
@@ -29,17 +29,17 @@ router.post('/', function(req, res, next) {
                     isAuth: isAuth,
                 })
             } else if (password == repassword) {
-                const hashedPassword = await bcrypt.hash(password, 10);
+                const hashedPassword: string = await bcrypt.hash(password, 10);
 
                 knex("users")
                     .insert({name: username, password: hashedPassword})
-                    .then(function() {
+                    .then(() => {
                         res.redirect("/");
                     })
-                    .catch(function() {
+                    .catch(() => {
                         res.redirect("/");
                     })
-                    .catch(function(err) {
+                    .catch((err) => {
                         console.error(err);
                         res.render("signup", {
                             title: "Sign up",
@@ -55,7 +55,7 @@ router.post('/', function(req, res, next) {
                 });
             }
         })
-        .catch(function(err) {
+        .catch((err) => {
             console.error(err);
             res.render("signup", {
                 title: "Sign up",
@@ -65,4 +65,4 @@ router.post('/', function(req, res, next) {
         })
 })
 
-module.exports = router;
+export default router;

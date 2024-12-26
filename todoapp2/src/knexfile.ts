@@ -1,4 +1,9 @@
-module.exports = {
+import { Knex } from 'knex';
+import * as dotenv from 'dotenv';
+
+dotenv.config({ path: '../.env' });
+
+const knexConfig: { [key: string]: Knex.Config } = {
     development: {
         client: "mysql",
         connection: {
@@ -6,10 +11,7 @@ module.exports = {
             user: process.env.MYSQL_USER,
             password: process.env.MYSQL_PASSWORD,
         },
-        pool: {
-            min: 2,
-            max: 10
-        },
+        pool: { min: 2, max: 10 },
     },
     staging: {
         client: "mysql",
@@ -18,10 +20,7 @@ module.exports = {
             user: process.env.MYSQL_USER,
             password: process.env.MYSQL_PASSWORD,
         },
-        pool: {
-            min: 2,
-            max: 10
-        },
+        pool: { min: 2, max: 10 },
     },
     production: {
         client: "mysql",
@@ -30,9 +29,8 @@ module.exports = {
             user: process.env.MYSQL_USER,
             password: process.env.MYSQL_PASSWORD,
         },
-        pool: {
-            min: 2,
-            max: 10
-        }
+        pool: { min: 2, max: 10 }
     }
 };
+
+export default knexConfig;

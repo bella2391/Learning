@@ -1,20 +1,25 @@
-const passport = require('passport');
-const LocalStrategy = require('passport-local');
-const knex = require('../db/knex');
-const bcrypt = require('bcrypt');
-const User = require('../models/user');
-const expressSession = require('express-session');
-const flash = require('connect-flash');
-const secret = process.env.COOKIE_SECRET;
+import { Application } from 'express';
+import passport from 'passport';
+import { Strategy as LocalStrategy } from 'passport-local';
+import knex from '../db/knex';
+import bcrypt from 'bcrypt';
+import User from '../models/user';
+import expressSession from 'express-session';
+import flash from 'connect-flash';
+import * as dotenv from 'dotenv';
 
-module.exports = function (app) {
-    passport.serializeUser(function(user, done) {
+dotenv.config({ path: '../.env' });
+
+var sessionSecret = process.env.COOKIE_SECRET || 'defaultSecret';
+
+export default (app: Application) => {
+    passport.serializeUser((user: Express.User, done) => {
         done(null, user.id);
     });
 
-    passport.deserializeUser(async function(id, done) {
+    passport.deserializeUser(async (id: number, done) => {
         try {
-            const user = await User.findById(id);
+            const user: Express.User = await User.findById(id);
             done(null, user);
         } catch (error) {
             done(error, null);
@@ -24,28 +29,28 @@ module.exports = function (app) {
     passport.use(new LocalStrategy({
         usernameField: 'username',
         passwordField: 'password',
-    }, function(username, password, done) {
+    }, (username: string, password: string, done) => {
         knex("users")
-        .where({ name: username, })
-        .select("*")
-        .then(async function(results) {
-            if (results.length == 0) {
-                return done(null, false, {  message: 'Invalid User'  });
-            } else if (await bcrypt.compare(password, results[0].password)) {
-                return done(null, results[0]);
-            } else {
-                return done(null, false, { message: 'Invalid User' });
-            }
-        })
-        .catch(function(err) {
-            console.error(err);
-            return done(null, false, { message: err.toString() });
-        })
+            .where({ name: username, })
+            .select("*")
+            .then(async (results) => {
+                if (results.length == 0) {
+                    return done(null, false, {  message: 'Invalid User'  });
+                } else if (await bcrypt.compare(password, results[0].password)) {
+                    return done(null, results[0]);
+                } else {
+                    return done(null, false, { message: 'Invalid User' });
+                }
+            })
+            .catch((err) => {
+                console.error(err);
+                return done(null, false, { message: err.toString() });
+            })
     }));
 
     app.use(
         expressSession({
-            secret: secret,
+            secret: sessionSecret,
             resave: false,
             saveUninitialized: false,
             cookie: { maxAge: 24 * 60 * 60 * 1000 },

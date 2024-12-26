@@ -1,11 +1,8 @@
-const createError = require('http-errors');
-const express = require('express');
-const path = require('path');
-const cookieParser = require('cookie-parser');
-const logger = require('morgan');
-
-//const indexRouter = require('./routes/index');
-//const usersRouter = require('./routes/users');
+import createError from 'http-errors';
+import express, { Request, Response, NextFunction } from 'express';
+import path from 'path';
+import cookieParser from 'cookie-parser';
+import logger from 'morgan';
 
 const app = express();
 
@@ -20,18 +17,18 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // authorization
-require('./config/passport')(app);
+import('./config/passport').then(passportModule => passportModule.default(app));
 
 // router
-app.use("/", require("./routes"));
+import('./routes').then(routersModule => app.use('/', routersModule.default));
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use((_: Request, __: Response, next: NextFunction) => {
     next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use((err: createError.HttpError, req: Request, res: Response, next: NextFunction) => {
     // set locals, only providing error in development
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -41,4 +38,4 @@ app.use(function(err, req, res, next) {
     res.render('error');
 });
 
-module.exports = app;
+export default app;

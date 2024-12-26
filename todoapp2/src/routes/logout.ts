@@ -1,8 +1,9 @@
-const express = require('express');
-const router = express.Router();
+import express, { Request, Response, NextFunction } from 'express';
 
-router.get('/', function(req, res, next) {
-    req.logout(function(err) {
+const router: express.Router = express.Router();
+
+router.get('/', (req: Request, res: Response, next: NextFunction) => {
+    req.logout((err) => {
         if (err) {
             return next(err);
         }
@@ -10,4 +11,4 @@ router.get('/', function(req, res, next) {
     res.redirect('/');
 });
 
-module.exports = router;
+export default router;

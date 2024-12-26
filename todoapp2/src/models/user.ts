@@ -1,8 +1,8 @@
-const knex = require('../db/knex');
+import knex from '../db/knex';
 
-const TABLE_NAME = "users";
+const TABLE_NAME: string = "users";
 
-async function findById(userId) {
+async function findById(userId: number) {
     const user = await where({ id: userId });
     if (user == null) {
         throw new Error('User not found')
@@ -10,7 +10,7 @@ async function findById(userId) {
     return { ...user };
 }
 
-async function where(condition) {
+async function where(condition: Record<string, any>) {
     return await knex(TABLE_NAME)
         .where(condition)
         .then((results) => {
@@ -21,6 +21,6 @@ async function where(condition) {
         });
 }
 
-module.exports = {
+export default {
     findById,
 };
