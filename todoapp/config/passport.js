@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const User = require('../models/user');
 const expressSession = require('express-session');
 const flash = require('connect-flash');
-const secret = 'secretCuisine123';
+const secret = process.env.COOKIE_SECRET;
 
 module.exports = function (app) {
     passport.serializeUser(function(user, done) {
