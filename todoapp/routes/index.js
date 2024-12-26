@@ -1,16 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const mysql = require('mysql');
 const knex = require('../db/knex');
-
-const conn = mysql.createConnection({
-    host: process.env.MYSQL_HOST,
-    user: process.env.MYSQL_USER,
-    password: process.env.MYSQL_PASSWORD,
-    database: process.env.MYSQL_DATABASE
-});
-
-//let todos = [];
 
 router.get('/', function(req, res, next) {
     const isAuth = req.isAuthenticated();
