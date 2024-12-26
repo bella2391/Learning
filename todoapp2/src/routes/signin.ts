@@ -4,11 +4,17 @@ import passport from 'passport';
 const router: express.Router = express.Router();
 
 router.get('/', (req: Request, res: Response, _: NextFunction) => {
-    const isAuth: boolean = req.isAuthenticated();
-    res.render('signin', {
-        title: 'Sign in',
-        isAuth: isAuth,
-    });
+    if (req.isAuthenticated()) {
+        res.render('signin', {
+            title: 'Sign in',
+            isAuth: true,
+        });
+    } else {
+        res.render('signin', {
+            title: 'Sign in',
+            isAuth: false,
+        });
+    }
 });
 
 router.post('/', passport.authenticate('local', {

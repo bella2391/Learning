@@ -13,25 +13,47 @@ dotenv.config({ path: '../.env' });
 var sessionSecret = process.env.COOKIE_SECRET || 'defaultSecret';
 
 export default (app: Application) => {
-    app.use(
-        expressSession({
-            secret: sessionSecret,
-            resave: false,
-            saveUninitialized: false,
-            cookie: { maxAge: 24 * 60 * 60 * 1000 },
-        })
-    );
+    passport.serializeUser((user, done) => {
+        console.log('serializeUser');
+        const typedUser = user as Express.User;
+        console.log(`user: ${JSON.stringify(user)}`);
+        //console.log(`user.id: ${typeof typedUser.id} - ${typedUser.id}`);
+        done(null, typedUser);
+    });
+
+    passport.deserializeUser(async (id: number | any, done) => {
+        console.log('deserializeUser');
+        console.log(`id: ${typeof id}`);
+        if (typeof id !== 'number') {
+            if (typeof id === 'string' && !isNaN(Number(id))) {
+                id = Number(id);
+            } else {
+                console.error('Invalid ID type:', typeof id);
+                return done(new Error(`Invalid ID type: ${typeof id}`), null);
+            }
+            console.error(`Invalid ID type: ${typeof id}}`);
+            return done(new Error('Invalid ID type'), null);
+        }
+
+        try {
+            const user: Express.User = await User.findById(id);
+            console.log(`user: ${user}`);
+            done(null, user);
+        } catch (error) {
+            done(error, null);
+        }
+    });
 
     passport.use(new LocalStrategy({
         usernameField: 'username',
         passwordField: 'password',
     }, (username: string, password: string, done) => {
         knex("users")
-            .where({ name: username, })
+            .where({ name: username })
             .select("*")
             .then(async (results) => {
                 if (results.length == 0) {
-                    return done(null, false, {  message: 'Invalid User'  });
+                    return done(null, false, { message: 'Invalid User' });
                 } else if (await bcrypt.compare(password, results[0].password)) {
                     return done(null, results[0]);
                 } else {
@@ -44,21 +66,17 @@ export default (app: Application) => {
             })
     }));
 
+    app.use(
+        expressSession({
+            secret: sessionSecret,
+            resave: false,
+            saveUninitialized: false,
+            cookie: { maxAge: 24 * 60 * 60 * 1000 },
+        })
+    );
+
     app.use(flash());
 
     app.use(passport.initialize());
     app.use(passport.session());
-
-    passport.serializeUser((user: Express.User, done) => {
-        done(null, user);
-    });
-
-    passport.deserializeUser(async (id: number, done) => {
-        try {
-            const user: Express.User = await User.findById(id);
-            done(null, user);
-        } catch (error) {
-            done(error, null);
-        }
-    });
 };

@@ -4,6 +4,7 @@ import path from 'path';
 import cookieParser from 'cookie-parser';
 import { indexRouter } from './routes/index';
 import logger from 'morgan';
+import passportConfig from './config/passport';
 
 const app = express();
 
@@ -18,7 +19,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // authorization
-import('./config/passport').then(passportModule => passportModule.default(app));
+//import('./config/passport').then(passportModule => passportModule.default(app));
+passportConfig(app);
 
 // router
 //import('./routes/index').then(routersModule => app.use('/', routersModule.default));
@@ -30,7 +32,7 @@ app.use((_: Request, __: Response, next: NextFunction) => {
 });
 
 // error handler
-app.use((err: createError.HttpError, req: Request, res: Response, next: NextFunction) => {
+app.use((err: createError.HttpError, req: Request, res: Response, _: NextFunction) => {
     // set locals, only providing error in development
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};

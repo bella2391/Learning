@@ -11,9 +11,10 @@ router.get('/', async (req: Request, res: Response, _: NextFunction) => {
         //const userId: number = (req as Express.AuthenticatedRequest).user.id;
         //const userId: number = req.user.id;
         const userId: number = (req.user as any).id;
+        console.log(`userId: ${userId}`);
         knex('tasks')
             .select("*")
-            .where({user_id: userId})
+            .where({ user_id: userId })
             .then((results) => {
                 res.render('index', {
                     title: 'ToDo App',
