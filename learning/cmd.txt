@@ -11,3 +11,6 @@ echo export PATH=\$PATH:`pwd`/node_modules/.bin >> ~/.bashrc
 source ~/.bashrc
 
 node --env-file=.env index.js
+
+# if failed to define type as import code block
+npm i --save-dev @types/[module name]
