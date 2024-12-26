@@ -3,10 +3,11 @@
 # the final goal is to integrate php web server environment to node one.
 
 # current main
-# js's express www converts ts one
-https://qiita.com/jumperson/items/e546137f6305ea98a673
-# js knex converts ts one
-https://medium.com/@aashishdhiman88/knex-js-setup-with-mysql-and-typescript-17f35d592c38
+# debug under error
+/home/bella/git/Learning/Learning-Java-TypeScript/todoapp2/src/routes/index.ts:4
+import signinRouter from './signin';
+           ^
+TypeError: req.isAuthenticated is not a function
 
 # probably next main
 # follow this link's last line, introducing twitter, discord and so on of authentication by passport module
@@ -38,6 +39,12 @@ https://zenn.dev/wkb/books/node-tutorial/viewer/todo_02
 # This is because typescript has secure type definition.
 # mysql(module: mysql2) js => ts
 https://qiita.com/suzukiplan/items/9e1bc829c8c1a8df006c
+# js's express www converts ts one
+https://qiita.com/jumperson/items/e546137f6305ea98a673
+# js knex converts ts one
+https://medium.com/@aashishdhiman88/knex-js-setup-with-mysql-and-typescript-17f35d592c38
+# debug: src/config/passport.ts:17:25 - error TS2339: Property 'id' does not exist on type 'User'.
+https://torikasyu.com/?p=2182#google_vignette
 
 # sub
 # css custom property for darkmode
@@ -51,6 +58,11 @@ https://gizanbeak.com/post/typescript-declare
 https://qiita.com/orange-na/items/1db36160feb40ef5871b
 # strategy by passport and create API
 https://twonine.net/blog/javascript/express-web-server-jwt/#toc8
+
+# ref
+# strategy by passport(local)
+https://torikasyu.com/?p=2182
+https://trueman-developer.blogspot.com/2018/05/nodejs-express-passport-typescript.html
 
 # abandoned
 # survival -typescript -react

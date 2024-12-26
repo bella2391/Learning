@@ -13,18 +13,14 @@ dotenv.config({ path: '../.env' });
 var sessionSecret = process.env.COOKIE_SECRET || 'defaultSecret';
 
 export default (app: Application) => {
-    passport.serializeUser((user: Express.User, done) => {
-        done(null, user.id);
-    });
-
-    passport.deserializeUser(async (id: number, done) => {
-        try {
-            const user: Express.User = await User.findById(id);
-            done(null, user);
-        } catch (error) {
-            done(error, null);
-        }
-    });
+    app.use(
+        expressSession({
+            secret: sessionSecret,
+            resave: false,
+            saveUninitialized: false,
+            cookie: { maxAge: 24 * 60 * 60 * 1000 },
+        })
+    );
 
     passport.use(new LocalStrategy({
         usernameField: 'username',
@@ -48,17 +44,21 @@ export default (app: Application) => {
             })
     }));
 
-    app.use(
-        expressSession({
-            secret: sessionSecret,
-            resave: false,
-            saveUninitialized: false,
-            cookie: { maxAge: 24 * 60 * 60 * 1000 },
-        })
-    );
-
     app.use(flash());
 
     app.use(passport.initialize());
     app.use(passport.session());
+
+    passport.serializeUser((user: Express.User, done) => {
+        done(null, user);
+    });
+
+    passport.deserializeUser(async (id: number, done) => {
+        try {
+            const user: Express.User = await User.findById(id);
+            done(null, user);
+        } catch (error) {
+            done(error, null);
+        }
+    });
 };

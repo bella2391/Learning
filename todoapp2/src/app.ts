@@ -2,6 +2,7 @@ import createError from 'http-errors';
 import express, { Request, Response, NextFunction } from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
+import { indexRouter } from './routes/index';
 import logger from 'morgan';
 
 const app = express();
@@ -20,7 +21,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 import('./config/passport').then(passportModule => passportModule.default(app));
 
 // router
-import('./routes').then(routersModule => app.use('/', routersModule.default));
+//import('./routes/index').then(routersModule => app.use('/', routersModule.default));
+app.use('/', indexRouter);
 
 // catch 404 and forward to error handler
 app.use((_: Request, __: Response, next: NextFunction) => {

@@ -29,7 +29,7 @@ const knexConfig: { [key: string]: Knex.Config } = {
             user: process.env.MYSQL_USER,
             password: process.env.MYSQL_PASSWORD,
         },
-        pool: { min: 2, max: 10 }
+        pool: { min: 2, max: 10 },
     }
 };
 
