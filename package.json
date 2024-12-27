@@ -5,9 +5,10 @@
   "scripts": {
     "build:server": "tsc",
     "build:client": "webpack --config ./client/webpack/prod.config.js",
-    "start:server": "npm run build:server && node ./dist/bin/www.js",
-    "start:devserver": "nodemon",
-    "start:clientserver": "webpack serve --mode=development",
+    "start:server:dev": "cross-env NODE_ENV=development PORT=3001 nodemon",
+    "start:server:prod": "cross-env NODE_ENV=production PROXY_REVERSE_PASS=/dev nodemon -c nodemon.production.json",
+    "start:server:prod:js": "npm run build:server && node ./dist/bin/www.js",
+    "start:server:client": "webpack serve --mode=development",
     "start:server:independence": "ts-node ./server/src/bin/www.ts"
   },
   "dependencies": {
@@ -19,6 +20,7 @@
     "bcrypt": "^5.1.1",
     "connect-flash": "^0.1.1",
     "cookie-parser": "~1.4.4",
+    "cross-env": "^7.0.3",
     "debug": "~2.6.9",
     "dotenv": "^16.4.7",
     "ejs": "^3.1.10",

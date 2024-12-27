@@ -1,6 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express';
 import knex from '../db/knex';
 import bcrypt from 'bcrypt';
+import baseurl from './baseurl';
 
 const router: express.Router = express.Router();
 
@@ -9,6 +10,7 @@ router.get('/', (req: Request, res: Response, _: NextFunction) => {
     res.render('signup', {
         title: 'Sign up',
         isAuth: isAuth,
+        baseurl: baseurl,
     });
 });
 
@@ -27,6 +29,7 @@ router.post('/', (req: Request, res: Response, _: NextFunction) => {
                     title: "Sign up",
                     errorMessage: ["このユーザー名はすでに使われています。"],
                     isAuth: isAuth,
+                    baseurl: baseurl,
                 })
             } else if (password == repassword) {
                 const hashedPassword: string = await bcrypt.hash(password, 10);
@@ -34,10 +37,10 @@ router.post('/', (req: Request, res: Response, _: NextFunction) => {
                 knex("users")
                     .insert({name: username, password: hashedPassword})
                     .then(() => {
-                        res.redirect("/");
+                        res.redirect(`${baseurl}/`);
                     })
                     .catch(() => {
-                        res.redirect("/");
+                        res.redirect(`${baseurl}/`);
                     })
                     .catch((err) => {
                         console.error(err);
@@ -45,6 +48,7 @@ router.post('/', (req: Request, res: Response, _: NextFunction) => {
                             title: "Sign up",
                             errorMessage: [err.sqlMessage],
                             isAuth: isAuth,
+                            baseurl: baseurl,
                         });
                     });
             } else {
@@ -52,6 +56,7 @@ router.post('/', (req: Request, res: Response, _: NextFunction) => {
                     title: "Sign up",
                     errorMessage: ["パスワードが一致しません。"],
                     isAuth: isAuth,
+                    baseurl: baseurl,
                 });
             }
         })
@@ -61,6 +66,7 @@ router.post('/', (req: Request, res: Response, _: NextFunction) => {
                 title: "Sign up",
                 errorMessage: [err.sqlMessage],
                 isAuth: isAuth,
+                baseurl: baseurl,
             })
         })
 })

@@ -3,6 +3,7 @@ import knex from '../db/knex';
 import signupRouter from './signup';
 import signinRouter from './signin';
 import logoutRouter from './logout';
+import baseurl from './baseurl';
 
 const router: express.Router = express.Router();
 
@@ -17,6 +18,7 @@ router.get('/', async (req: Request, res: Response, _: NextFunction) => {
                     title: 'ToDo App',
                     todos: results,
                     isAuth: true,
+                    baseurl: baseurl,
                 });
             })
             .catch((err) => {
@@ -25,12 +27,14 @@ router.get('/', async (req: Request, res: Response, _: NextFunction) => {
                     title: 'ToDo App',
                     isAuth: true,
                     errorMessage: [err.sqlMessage],
+                    baseurl: baseurl,
                 });
             });
     } else {
         res.render('index', {
             title: 'ToDo App',
             isAuth: false,
+            baseurl: baseurl,
         });
     }
 });
@@ -44,7 +48,7 @@ router.post('/', async (req: Request, res: Response, _: NextFunction) => {
         knex("tasks")
             .insert({ user_id: userId, content: todo })
             .then(() => {
-                res.redirect('/');
+                res.redirect(`${baseurl}/`);
             })
             .catch((err) => {
                 console.error(err);
@@ -52,6 +56,7 @@ router.post('/', async (req: Request, res: Response, _: NextFunction) => {
                     title: 'ToDo App',
                     isAuth: true,
                     errorMessage: [err.sqlMessage],
+                    baseurl: baseurl,
                 });
             })
     }

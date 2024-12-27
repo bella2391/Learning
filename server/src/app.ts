@@ -5,9 +5,12 @@ import cookieParser from 'cookie-parser';
 import { indexRouter } from './routes/index';
 import logger from 'morgan';
 import passportConfig from './config/passport';
+import baseurl from './routes/baseurl';
 
 const app = express();
 
+console.log(`-- current mode is ${process.env.NODE_ENV} --`);
+console.log(`-- current Base URL is ${baseurl} --`)
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
