@@ -3,11 +3,6 @@
 # the final goal is to integrate php web server environment to node one.
 
 # current main
-# debug under error
-/home/bella/git/Learning/Learning-Java-TypeScript/todoapp2/src/routes/index.ts:4
-import signinRouter from './signin';
-           ^
-TypeError: req.isAuthenticated is not a function
 
 # probably next main
 # follow this link's last line, introducing twitter, discord and so on of authentication by passport module
