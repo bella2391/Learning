@@ -22,6 +22,7 @@ https://knexjs.org/guide/
 https://www.typescriptlang.org/docs/handbook/intro.html
 
 # old main
+# about webpack bundle
 https://hnavi.co.jp/knowledge/blog/typescript/
 # tohoho series -nodejs
 https://www.tohoho-web.com/ex/nodejs.html
@@ -58,6 +59,8 @@ https://gizanbeak.com/post/typescript-declare
 https://qiita.com/orange-na/items/1db36160feb40ef5871b
 # strategy by passport and create API
 https://twonine.net/blog/javascript/express-web-server-jwt/#toc8
+# object to map
+https://qiita.com/nori0__/items/0ef84350559cc5e93f4b
 
 # ref
 # strategy by passport(local)

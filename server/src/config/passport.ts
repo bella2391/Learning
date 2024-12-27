@@ -1,3 +1,9 @@
+import * as dotenv from 'dotenv';
+import * as path from 'path';
+
+const envPath = path.resolve(__dirname, '../.env');
+dotenv.config({ path: envPath });
+
 import { Application } from 'express';
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
@@ -6,9 +12,6 @@ import bcrypt from 'bcrypt';
 import User from '../models/user';
 import expressSession from 'express-session';
 import flash from 'connect-flash';
-import * as dotenv from 'dotenv';
-
-dotenv.config({ path: '../.env' });
 
 var sessionSecret = process.env.COOKIE_SECRET || 'defaultSecret';
 
@@ -27,7 +30,6 @@ export default (app: Application) => {
     passport.deserializeUser(async (id: number, done) => {
         try {
             const user: Express.User = await User.findById(id);
-            console.log(`user: ${user}`);
             done(null, user);
         } catch (error) {
             done(error, null);

@@ -19,11 +19,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // authorization
-//import('./config/passport').then(passportModule => passportModule.default(app));
 passportConfig(app);
 
 // router
-//import('./routes/index').then(routersModule => app.use('/', routersModule.default));
 app.use('/', indexRouter);
 
 // catch 404 and forward to error handler

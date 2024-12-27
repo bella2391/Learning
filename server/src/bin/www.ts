@@ -3,12 +3,15 @@
 /**
  * Module dependencies.
  */
+import * as dotenv from 'dotenv';
+import * as path from 'path';
+
+const envPath = path.resolve(__dirname, '../.env');
+dotenv.config({ path: envPath });
+
 import app from '../app';
 import * as http from 'http';
 import * as debugModule from 'debug';
-import * as dotenv from 'dotenv';
-
-dotenv.config({ path: '../.env' });
 
 var debug = debugModule.debug('quick-start-express-typescript:server');
 

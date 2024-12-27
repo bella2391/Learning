@@ -8,10 +8,7 @@ const router: express.Router = express.Router();
 
 router.get('/', async (req: Request, res: Response, _: NextFunction) => {
     if (req.isAuthenticated()) {
-        //const userId: number = (req as Express.AuthenticatedRequest).user.id;
-        //const userId: number = req.user.id;
         const userId: number = (req.user as any).id;
-        console.log(`userId: ${userId}`);
         knex('tasks')
             .select("*")
             .where({ user_id: userId })
@@ -40,7 +37,6 @@ router.get('/', async (req: Request, res: Response, _: NextFunction) => {
 
 router.post('/', async (req: Request, res: Response, _: NextFunction) => {
     if (req.isAuthenticated()) {
-        //const userId: number = req.user.id;
         //const userId: number = (req as Express.AuthenticatedRequest).user.id;
         const userId: number = (req.user as any).id;
         const todo: string = req.body.add;

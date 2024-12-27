@@ -11,10 +11,9 @@ async function findById(userId: number) {
 }
 
 async function where(condition: Record<string, any>) {
-    console.log(`Condition: ${condition}}`);
     return await knex(TABLE_NAME)
         .where(condition)
-        .debug(true)
+        //.debug(true) // for debug option
         .then((results) => {
             if (results.length == 0) {
                 return null;
