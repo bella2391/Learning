@@ -14,27 +14,17 @@ var sessionSecret = process.env.COOKIE_SECRET || 'defaultSecret';
 
 export default (app: Application) => {
     passport.serializeUser((user, done) => {
-        console.log('serializeUser');
-        const typedUser = user as Express.User;
-        console.log(`user: ${JSON.stringify(user)}`);
-        //console.log(`user.id: ${typeof typedUser.id} - ${typedUser.id}`);
-        done(null, typedUser);
+        if (typeof user !== 'object' || user === null) {
+            throw new Error('User must be a non-null object');
+        }
+        const user_info = user as { id: number; [key: string]: any };
+        if (!('id' in user_info) || typeof user_info.id !== 'number') {
+            throw new Error('User object does not contain a valid id');
+        }
+        done(null, user_info.id);
     });
 
-    passport.deserializeUser(async (id: number | any, done) => {
-        console.log('deserializeUser');
-        console.log(`id: ${typeof id}`);
-        if (typeof id !== 'number') {
-            if (typeof id === 'string' && !isNaN(Number(id))) {
-                id = Number(id);
-            } else {
-                console.error('Invalid ID type:', typeof id);
-                return done(new Error(`Invalid ID type: ${typeof id}`), null);
-            }
-            console.error(`Invalid ID type: ${typeof id}}`);
-            return done(new Error('Invalid ID type'), null);
-        }
-
+    passport.deserializeUser(async (id: number, done) => {
         try {
             const user: Express.User = await User.findById(id);
             console.log(`user: ${user}`);

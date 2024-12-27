@@ -1,3 +1,4 @@
+/*
 import * as express from 'express';
 
 declare global {
@@ -15,3 +16,4 @@ declare global {
         }
     }
 }
+    */

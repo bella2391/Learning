@@ -1,12 +1,12 @@
-The values in where clause must not be object or array.
-AssertionError [ERR_ASSERTION]: The values in where clause must not be object or array.
-    at QueryCompiler_MySQL.whereBasic (/home/bella/git/Learning/Learning-Java-TypeScript/todoapp2/node_modules/knex/lib/dialects/mysql/query/mysql-querycompiler.js:185:5)
-    at QueryCompiler_MySQL.where (/home/bella/git/Learning/Learning-Java-TypeScript/todoapp2/node_modules/knex/lib/query/querycompiler.js:584:34)
-    at /home/bella/git/Learning/Learning-Java-TypeScript/todoapp2/node_modules/knex/lib/query/querycompiler.js:135:40
-    at Array.forEach (<anonymous>)
-    at QueryCompiler_MySQL.select (/home/bella/git/Learning/Learning-Java-TypeScript/todoapp2/node_modules/knex/lib/query/querycompiler.js:134:16)
-    at QueryCompiler_MySQL.toSQL (/home/bella/git/Learning/Learning-Java-TypeScript/todoapp2/node_modules/knex/lib/query/querycompiler.js:75:29)
-    at QueryBuilder_MySQL.toSQL (/home/bella/git/Learning/Learning-Java-TypeScript/todoapp2/node_modules/knex/lib/query/querybuilder.js:84:44)
-    at ensureConnectionCallback (/home/bella/git/Learning/Learning-Java-TypeScript/todoapp2/node_modules/knex/lib/execution/internal/ensure-connection-callback.js:4:30)
-    at Runner.ensureConnection (/home/bella/git/Learning/Learning-Java-TypeScript/todoapp2/node_modules/knex/lib/execution/runner.js:318:20)
-    at async Runner.run (/home/bella/git/Learning/Learning-Java-TypeScript/todoapp2/node_modules/knex/lib/execution/runner.js:30:19)
+Invalid ID type: object
+Error: Invalid ID type: object
+    at /home/bella/git/Learning/Learning-Java-TypeScript/todoapp2/src/config/passport.ts:32:29
+    at Generator.next (<anonymous>)
+    at /home/bella/git/Learning/Learning-Java-TypeScript/todoapp2/src/config/passport.ts:41:71
+    at new Promise (<anonymous>)
+    at __awaiter (/home/bella/git/Learning/Learning-Java-TypeScript/todoapp2/src/config/passport.ts:37:12)
+    at /home/bella/git/Learning/Learning-Java-TypeScript/todoapp2/src/config/passport.ts:24:63
+    at pass (/home/bella/git/Learning/Learning-Java-TypeScript/todoapp2/node_modules/passport/lib/authenticator.js:372:9)
+    at Authenticator.deserializeUser (/home/bella/git/Learning/Learning-Java-TypeScript/todoapp2/node_modules/passport/lib/authenticator.js:377:5)
+    at SessionStrategy.authenticate (/home/bella/git/Learning/Learning-Java-TypeScript/todoapp2/node_modules/passport/lib/strategies/session.js:112:10)
+    at attempt (/home/bella/git/Learning/Learning-Java-TypeScript/todoapp2/node_modules/passport/lib/middleware/authenticate.js:378:16)
