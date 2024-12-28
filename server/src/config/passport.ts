@@ -63,7 +63,10 @@ export default (app: Application) => {
             secret: sessionSecret,
             resave: false,
             saveUninitialized: false,
-            cookie: { maxAge: 24 * 60 * 60 * 1000 },
+            cookie: {
+                maxAge: 24 * 60 * 60 * 1000,
+                secure: process.env.NODE_ENV === 'production',
+            },
         })
     );
 

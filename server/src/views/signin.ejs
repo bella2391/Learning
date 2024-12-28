@@ -15,6 +15,7 @@
 
         <div class="container">
             <form action="<%= baseurl %>/signin" method="post">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                 <label>ユーザー名</label>
                 <input required type="text" name="username"/>
                 <br>

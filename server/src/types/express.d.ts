@@ -1,19 +1,7 @@
-/*
-import * as express from 'express';
+import 'express';
 
-declare global {
-    namespace Express {
-        interface User {
-            id: number;
-        }
-
-        interface AuthenticatedRequest extends express.Request {
-            user: User;
-        }
-
-        interface Request {
-            isAuthenticated(): this is AuthenticatedRequest;
-        }
+declare module 'express' {
+    interface Request {
+        csrfToken?: () => string;
     }
 }
-    */

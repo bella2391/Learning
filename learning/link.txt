@@ -3,6 +3,8 @@
 # the final goal is to integrate php web server environment to node one.
 
 # current main
+# about protection of server against attacker
+https://zenn.dev/kazumasa/books/a8ae1b411e1710/viewer/898da1
 
 # probably next main
 # follow this link's last line, introducing twitter, discord and so on of authentication by passport module

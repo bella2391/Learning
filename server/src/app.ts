@@ -6,26 +6,56 @@ import { indexRouter } from './routes/index';
 import logger from 'morgan';
 import passportConfig from './config/passport';
 import baseurl from './routes/baseurl';
+import cors from 'cors';
 
 const app = express();
 
 console.log(`-- current mode is ${process.env.NODE_ENV} --`);
-console.log(`-- current Base URL is ${baseurl} --`)
+if (baseurl) {
+    console.log(`-- current Base URL is ${baseurl} --`)
+} else {
+    console.log(`-- current Base URL is http://localhost:${process.env.PORT}/ --`)
+}
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+
 app.use(cookieParser());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 // authorization
 passportConfig(app);
 
+app.use((_: Request, res: Response, next: NextFunction) => {
+    const originalSetHeader = res.setHeader;
+    res.setHeader = function (name, value) {
+        console.log(`Set-Cookie debug: ${name}: ${value}`);
+        return originalSetHeader.apply(this, [name, value]);
+    };
+    next();
+});
+
 // router
 app.use('/', indexRouter);
+
+// debug
+app.use(cors({
+    origin: (origin, callback) => {
+        const allowedOrigins = ['http://localhost:3001', 'http://example.com']; // 許可するドメイン
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true, // クッキーの送信を許可
+}));
 
 // catch 404 and forward to error handler
 app.use((_: Request, __: Response, next: NextFunction) => {
