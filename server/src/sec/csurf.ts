@@ -10,6 +10,11 @@ export default (app: Application) => {
         },
     }));
 
+    app.use((req, res, next) => {
+        res.locals.csrfToken = req.csrfToken();
+        next();
+    });
+
     app.use((err: any, _: Request, res: Response, next: NextFunction) => {
         if (err) {
             if (err.code === 'EBADCSRFTOKEN') {

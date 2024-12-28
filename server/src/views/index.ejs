@@ -16,6 +16,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <form action="<%= baseurl %>/" method="post">
+                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                             <label>タスクの追加</label>
                             <input required type="text" name="add" placeholder="何をする？"/>
                             <input type="submit" value="追加"/>
@@ -29,7 +30,7 @@
                         </ul>
                     </div>
                 </div>
-            </>
+            </div>
         <% } else { %>
             <h1>Welcome to the TodoApp</h1>
             <div class="center">

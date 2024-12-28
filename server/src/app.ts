@@ -7,6 +7,7 @@ import logger from 'morgan';
 import passportConfig from './config/passport';
 import baseurl from './routes/baseurl';
 import cors from 'cors';
+import csurf from './sec/csurf';
 
 const app = express();
 
@@ -32,12 +33,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 // authorization
 passportConfig(app);
 
+// csurf
+csurf(app);
+
+// global ejs template variables
 app.use((_: Request, res: Response, next: NextFunction) => {
-    const originalSetHeader = res.setHeader;
-    res.setHeader = function (name, value) {
-        console.log(`Set-Cookie debug: ${name}: ${value}`);
-        return originalSetHeader.apply(this, [name, value]);
-    };
+    res.locals.baseurl = baseurl;
     next();
 });
 

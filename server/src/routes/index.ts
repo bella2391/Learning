@@ -18,7 +18,6 @@ router.get('/', async (req: Request, res: Response, _: NextFunction) => {
                     title: 'ToDo App',
                     todos: results,
                     isAuth: true,
-                    baseurl: baseurl,
                 });
             })
             .catch((err) => {
@@ -27,14 +26,12 @@ router.get('/', async (req: Request, res: Response, _: NextFunction) => {
                     title: 'ToDo App',
                     isAuth: true,
                     errorMessage: [err.sqlMessage],
-                    baseurl: baseurl,
                 });
             });
     } else {
         res.render('index', {
             title: 'ToDo App',
             isAuth: false,
-            baseurl: baseurl,
         });
     }
 });
@@ -56,7 +53,6 @@ router.post('/', async (req: Request, res: Response, _: NextFunction) => {
                     title: 'ToDo App',
                     isAuth: true,
                     errorMessage: [err.sqlMessage],
-                    baseurl: baseurl,
                 });
             })
     }
