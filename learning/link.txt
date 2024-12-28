@@ -4,6 +4,7 @@
 
 # current main
 # about protection of server against attacker
+# csrf/rate limiting
 https://zenn.dev/kazumasa/books/a8ae1b411e1710/viewer/898da1
 
 # probably next main
@@ -63,6 +64,8 @@ https://qiita.com/nori0__/items/0ef84350559cc5e93f4b
 # strategy by passport(local)
 https://torikasyu.com/?p=2182
 https://trueman-developer.blogspot.com/2018/05/nodejs-express-passport-typescript.html
+# csrf measure by using both front end: javascript(xhr poster) and node(module: csurf)
+https://dev.classmethod.jp/articles/node-js_csrf/
 
 # abandoned
 # survival -typescript -react
