@@ -1,5 +1,6 @@
 import * as dotenv from 'dotenv';
 import * as path from 'path';
+import { Strategy as DiscordStrategy, Profile as DiscordProfile } from 'passport-discord';
 
 const envPath = path.resolve(__dirname, '../.env');
 dotenv.config({ path: envPath });
@@ -13,7 +14,14 @@ import User from '../models/user';
 import expressSession from 'express-session';
 import flash from 'connect-flash';
 
-var sessionSecret = process.env.COOKIE_SECRET || 'defaultSecret';
+const sessionSecret = process.env.COOKIE_SECRET || 'defaultSecret';
+const discordClientId = process.env.DISCORD_CLIENT_ID || '';
+const discordClientSecret = process.env.DISCORD_CLIENT_SECRET || '';
+const discordCallbackURL = process.env.DISCORD_CALLBACK_URL || '';
+
+if (!discordClientId || !discordClientSecret || !discordCallbackURL) {
+    throw new Error('Discord OAuth settings are missing in .env file.');
+}
 
 export default (app: Application) => {
     passport.serializeUser((user, done) => {
@@ -36,26 +44,55 @@ export default (app: Application) => {
         }
     });
 
+    var scopes = ['identify', 'email', 'guilds', 'guild.join'];
+
+    passport.use(new DiscordStrategy({
+        clientID: 'id',
+        clientSecret: 'secret',
+        callbackURL: 'callbackURL',
+        scope: scopes
+    }, async (accessToken, _/* refreshToken */, profile: DiscordProfile, done) => {
+        try {
+            const existingUser = await knex('users').where({ discordId: profile.id }).first();
+            if (existingUser) {
+                return done(null, existingUser);
+            }
+
+            const newUser = await knex('users').insert({
+                discordId: profile.id,
+                username: profile.username,
+                email: profile.email,
+                avatar: profile.avatar,
+                accessToken,
+            }).returning('*');
+
+            return done(null, newUser[0])
+        } catch (err) {
+            console.error('Error in DiscordStrategy: ', err)
+            return done(null, false, { message: err });
+        }
+    }));
+
     passport.use(new LocalStrategy({
         usernameField: 'username',
         passwordField: 'password',
-    }, (username: string, password: string, done) => {
-        knex("users")
-            .where({ name: username })
-            .select("*")
-            .then(async (results) => {
-                if (results.length == 0) {
-                    return done(null, false, { message: 'Invalid User' });
-                } else if (await bcrypt.compare(password, results[0].password)) {
-                    return done(null, results[0]);
-                } else {
-                    return done(null, false, { message: 'Invalid User' });
-                }
-            })
-            .catch((err) => {
-                console.error(err);
-                return done(null, false, { message: err.toString() });
-            })
+    }, async (username: string, password: string, done) => {
+        try {
+            const user = await knex('users').where({ name: username }).first();
+            if (!user) {
+                return done(null, false, { message: 'Invalid username or password' });
+            }
+
+            const isMatch = await bcrypt.compare(password, user.password);
+            if (!isMatch) {
+                return done(null, false, { message: 'Invalid username or password' });
+            }
+
+            return done(null, user);
+        } catch (err) {
+            console.error('Error in LocalStrategy: ', err);
+            return done(err);
+        }
     }));
 
     app.use(

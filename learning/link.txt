@@ -3,15 +3,17 @@
 # the final goal is to integrate php web server environment to node one.
 
 # current main
-# about protection of server against attacker
-# csrf/rate limiting
-https://zenn.dev/kazumasa/books/a8ae1b411e1710/viewer/898da1
-
-# probably next main
+# intro discord passport authentication
+https://www.passportjs.org/packages/passport-discord/
 # follow this link's last line, introducing twitter, discord and so on of authentication by passport module
 https://qiita.com/orange-na/items/1db36160feb40ef5871b
 # microsoft github repo passport facebook authentication
 https://github.com/microsoft/TypeScript-Node-Starter/blob/master/src/config/passport.ts
+
+# probably next main
+# about protection of server against attacker
+# csrf/rate limiting
+https://zenn.dev/kazumasa/books/a8ae1b411e1710/viewer/898da1
 
 # module: knex official docs
 https://knexjs.org/guide/
