@@ -1,22 +1,10 @@
-import express, { Request, Response, NextFunction } from 'express';
+import express, { Request, Response } from 'express';
 import passport from 'passport';
 import baseurl from './baseurl'
 
 const router: express.Router = express.Router();
 
-router.get('/discord', (req, res, next) => {
-    console.log('Redirecting to Discord...');
-    passport.authenticate('discord', (err, user, info) => {
-        if (err) {
-            console.error('Error in /auth/discord:', err);
-            return next(err);
-        }
-        if (!user) {
-            console.log('No user found in /auth/discord:', info);
-        }
-        next();
-    })(req, res, next);
-});
+router.get('/discord', passport.authenticate('discord'));
 
 router.get('/discord/callback', passport.authenticate('discord', {
     failureRedirect: `${baseurl}/signin`,
@@ -25,5 +13,12 @@ router.get('/discord/callback', passport.authenticate('discord', {
     console.log('Callback reached');
     res.json({ success: true, user: req.user });
 });
+
+router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+
+router.get('/google/callback', passport.authenticate('google', {
+    failureRedirect: `${baseurl}/signin`,
+    successRedirect: `${baseurl}/`
+}));
 
 export default router;

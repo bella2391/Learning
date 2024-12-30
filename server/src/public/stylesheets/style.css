@@ -121,3 +121,16 @@ hr {
     width: 50px;
     height: auto;
 }
+
+.wrapper {
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
+    /*justify-content: space-between;*/
+}
+
+.wrapper > div {
+    padding: 10px;
+}

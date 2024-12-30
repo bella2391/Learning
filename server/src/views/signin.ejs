@@ -4,17 +4,25 @@
         <meta charset="utf-8">
         <title><%= title %></title>
         <meta name="viewport" content="width=device-width, initial-scale">
-        <link rel="stylesheet" href="<%= baseurl %>/stylesheets/style.css" />
+        <link rel="stylesheet" href="<%= baseurl %>/stylesheets/style.css"/>
+        <link rel="stylesheet" href="<%=baseurl %>/stylesheets/google_button.css"/>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
               integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     </head>
     <body>
-        <%- include('./header'); %>
+        <%- include('./include/header'); %>
 
-        <%- include('./error_messages'); %>
+        <%- include('./include/error_messages'); %>
 
         <div class="container">
-            <a href="<%= baseurl %>/auth/discord"><img class="auth-logo" src="https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/636e0a69f118df70ad7828d4_icon_clyde_blurple_RGB.svg"></a>
+            <div class="wrapper">
+                <div>
+                    <a href="<%= baseurl %>/auth/discord"><img class="auth-logo" src="https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/636e0a69f118df70ad7828d4_icon_clyde_blurple_RGB.svg"></a>
+                </div>
+                <div>
+                    <a href="<%= baseurl %>/auth/google"><%- include('./include/google_button') %></a>
+                </div>
+            </div>
             <form action="<%= baseurl %>/signin" method="post">
                 <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                 <label>ユーザー名</label>

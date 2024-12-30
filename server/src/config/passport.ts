@@ -1,7 +1,5 @@
 import * as dotenv from 'dotenv';
 import * as path from 'path';
-import { Strategy as DiscordStrategy, Profile as DiscordProfile } from 'passport-discord';
-
 const envPath = path.resolve(__dirname, '../.env');
 dotenv.config({ path: envPath });
 
@@ -15,28 +13,44 @@ import expressSession from 'express-session';
 import flash from 'connect-flash';
 import baseurl from '../routes/baseurl';
 
+import { Strategy as DiscordStrategy, Profile as DiscordProfile } from 'passport-discord';
+
+function getCallBackURL(type: string): string {
+    var callbackurl: string = '';
+    if (process.env.NODE_ENV === 'production') {
+        if (process.env.IS_HTTPS === 'true') {
+            callbackurl += 'https://';
+        }
+        callbackurl += process.env.PRODUCTION_HOST || 'localhost';
+    } else {
+        callbackurl += 'http://localhost';
+    }
+
+    if (process.env.PORT) {
+        callbackurl  += ":" + process.env.PORT;
+    }
+    callbackurl += `${baseurl}/auth/${type}/callback`
+
+    return callbackurl;
+}
+
 const sessionSecret = process.env.COOKIE_SECRET || 'defaultSecret';
 const discordClientId = process.env.DISCORD_CLIENT_ID || '';
 const discordClientSecret = process.env.DISCORD_CLIENT_SECRET || '';
-var discordCallbackURL =  '';
-
-if (process.env.NODE_ENV === 'production') {
-    if (process.env.IS_HTTPS === 'true') {
-        discordCallbackURL += 'https://';
-    }
-    discordCallbackURL += process.env.PRODUCTION_HOST || 'localhost';
-} else {
-    discordCallbackURL += 'http://localhost';
-}
-
-if (process.env.PORT) {
-    discordCallbackURL  += ":" + process.env.PORT;
-}
-
-discordCallbackURL += baseurl + '/' + 'auth/discord/callback'
+const discordCallbackURL =  getCallBackURL('discord');
 
 if (!discordClientId || !discordClientSecret || !discordCallbackURL) {
     throw new Error('Discord OAuth settings are missing in .env file.');
+}
+
+import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
+
+const googleClientId = process.env.GOOGLE_CLIENT_ID || '';
+const googleClientSecret = process.env.GOOGLE_CLIENT_SECRET || '';
+const googleCallbackURL = getCallBackURL('google');
+
+if (!googleClientId || !googleClientSecret || !googleCallbackURL) {
+    throw new Error('Google OAuth setting are missing in .env file');
 }
 
 export default (app: Application) => {
@@ -88,6 +102,34 @@ export default (app: Application) => {
         } catch (err) {
             console.error('Error in DiscordStrategy: ', err)
             return done(null, false, { message: err });
+        }
+    }));
+
+    passport.use(new GoogleStrategy({
+        clientID: googleClientId,
+        clientSecret: googleClientSecret,
+        callbackURL: googleCallbackURL
+    }, async (accessToken, _, profile, done) => {
+        try {
+            const existingUser = await knex('users').where({ googleId: profile.id }).first();
+            if (existingUser) {
+                return done(null, existingUser);
+            }
+
+            const [newUserId] = await knex('users').insert({
+                googleId: profile.id,
+                name: profile.displayName,
+                email: profile.emails?.[0].value,
+                avatar: profile.photos?.[0].value,
+                accessToken,
+            });
+
+            const newUser = await knex('users').where({ id: newUserId }).first();
+
+            return done(null, newUser);
+        } catch (err) {
+            console.error('Error in GoogleStrategy: ', err)
+            return done(err, false);
         }
     }));
 
