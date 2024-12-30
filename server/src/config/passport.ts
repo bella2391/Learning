@@ -44,29 +44,31 @@ export default (app: Application) => {
         }
     });
 
-    var scopes = ['identify', 'email', 'guilds', 'guild.join'];
+    var scopes = ['identify', 'email']; // 'guilds', 'guild.join'
 
     passport.use(new DiscordStrategy({
-        clientID: 'id',
-        clientSecret: 'secret',
-        callbackURL: 'callbackURL',
+        clientID: discordClientId,
+        clientSecret: discordClientSecret,
+        callbackURL: discordCallbackURL,
         scope: scopes
-    }, async (accessToken, _/* refreshToken */, profile: DiscordProfile, done) => {
+    }, async (accessToken, _, profile: DiscordProfile, done) => {
         try {
             const existingUser = await knex('users').where({ discordId: profile.id }).first();
             if (existingUser) {
                 return done(null, existingUser);
             }
 
-            const newUser = await knex('users').insert({
+            const [newUserId] = await knex('users').insert({
                 discordId: profile.id,
-                username: profile.username,
+                name: profile.username,
                 email: profile.email,
                 avatar: profile.avatar,
                 accessToken,
-            }).returning('*');
+            });
 
-            return done(null, newUser[0])
+            const newUser = await knex('users').where({ id: newUserId }).first();
+
+            return done(null, newUser)
         } catch (err) {
             console.error('Error in DiscordStrategy: ', err)
             return done(null, false, { message: err });

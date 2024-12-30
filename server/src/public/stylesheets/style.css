@@ -116,3 +116,8 @@ hr {
 .center {
     text-align: center;
 }
+
+.auth-logo {
+    width: 50px;
+    height: auto;
+}

@@ -3,6 +3,7 @@ import knex from '../db/knex';
 import signupRouter from './signup';
 import signinRouter from './signin';
 import logoutRouter from './logout';
+import authRouter from './auth';
 import baseurl from './baseurl';
 
 const router: express.Router = express.Router();
@@ -61,5 +62,6 @@ router.post('/', async (req: Request, res: Response, _: NextFunction) => {
 router.use('/signup', signupRouter);
 router.use('/signin', signinRouter);
 router.use('/logout', logoutRouter);
+router.use('/auth', authRouter);
 
 export { router as indexRouter };
