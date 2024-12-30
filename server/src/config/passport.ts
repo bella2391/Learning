@@ -13,11 +13,27 @@ import bcrypt from 'bcrypt';
 import User from '../models/user';
 import expressSession from 'express-session';
 import flash from 'connect-flash';
+import baseurl from '../routes/baseurl';
 
 const sessionSecret = process.env.COOKIE_SECRET || 'defaultSecret';
 const discordClientId = process.env.DISCORD_CLIENT_ID || '';
 const discordClientSecret = process.env.DISCORD_CLIENT_SECRET || '';
-const discordCallbackURL = process.env.DISCORD_CALLBACK_URL || '';
+var discordCallbackURL =  '';
+
+if (process.env.NODE_ENV === 'production') {
+    if (process.env.IS_HTTPS === 'true') {
+        discordCallbackURL += 'https://';
+    }
+    discordCallbackURL += process.env.PRODUCTION_HOST || 'localhost';
+} else {
+    discordCallbackURL += 'http://localhost';
+}
+
+if (process.env.PORT) {
+    discordCallbackURL  += ":" + process.env.PORT;
+}
+
+discordCallbackURL += baseurl + '/' + 'auth/discord/callback'
 
 if (!discordClientId || !discordClientSecret || !discordCallbackURL) {
     throw new Error('Discord OAuth settings are missing in .env file.');

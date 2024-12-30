@@ -3,6 +3,9 @@
 # the final goal is to integrate php web server environment to node one.
 
 # current main
+# next is google/twitter
+# guideline for google signin button
+https://developers.google.com/identity/branding-guidelines?hl=ja
 # intro discord passport authentication
 https://www.passportjs.org/packages/passport-discord/
 # follow this link's last line, introducing twitter, discord and so on of authentication by passport module
