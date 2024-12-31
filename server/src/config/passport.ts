@@ -3,14 +3,11 @@ import * as path from 'path';
 const envPath = path.resolve(__dirname, '../.env');
 dotenv.config({ path: envPath });
 
-import { Application } from 'express';
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 import knex from '../db/knex';
 import bcrypt from 'bcrypt';
 import User from '../models/user';
-import expressSession from 'express-session';
-import flash from 'connect-flash';
 import baseurl from '../routes/baseurl';
 
 import { Strategy as DiscordStrategy, Profile as DiscordProfile } from 'passport-discord';
@@ -34,7 +31,6 @@ function getCallBackURL(type: string): string {
     return callbackurl;
 }
 
-const sessionSecret = process.env.COOKIE_SECRET || 'defaultSecret';
 const discordClientId = process.env.DISCORD_CLIENT_ID || '';
 const discordClientSecret = process.env.DISCORD_CLIENT_SECRET || '';
 const discordCallbackURL =  getCallBackURL('discord');
@@ -53,122 +49,105 @@ if (!googleClientId || !googleClientSecret || !googleCallbackURL) {
     throw new Error('Google OAuth setting are missing in .env file');
 }
 
-export default (app: Application) => {
-    passport.serializeUser((user, done) => {
-        if (typeof user !== 'object' || user === null) {
-            throw new Error('User must be a non-null object');
+passport.serializeUser((user, done) => {
+    if (typeof user !== 'object' || user === null) {
+        throw new Error('User must be a non-null object');
+    }
+    const user_info = user as { id: number; [key: string]: any };
+    if (!('id' in user_info) || typeof user_info.id !== 'number') {
+        throw new Error('User object does not contain a valid id');
+    }
+    done(null, user_info.id);
+});
+
+passport.deserializeUser(async (id: number, done) => {
+    try {
+        const user: Express.User = await User.findById(id);
+        done(null, user);
+    } catch (error) {
+        done(error, null);
+    }
+});
+
+var scopes = ['identify', 'email']; // 'guilds', 'guild.join'
+
+passport.use(new DiscordStrategy({
+    clientID: discordClientId,
+    clientSecret: discordClientSecret,
+    callbackURL: discordCallbackURL,
+    scope: scopes
+}, async (accessToken, _, profile: DiscordProfile, done) => {
+    try {
+        const existingUser = await knex('users').where({ discordId: profile.id }).first();
+        if (existingUser) {
+            return done(null, existingUser);
         }
-        const user_info = user as { id: number; [key: string]: any };
-        if (!('id' in user_info) || typeof user_info.id !== 'number') {
-            throw new Error('User object does not contain a valid id');
+
+        const [newUserId] = await knex('users').insert({
+            discordId: profile.id,
+            name: profile.username,
+            email: profile.email,
+            avatar: profile.avatar,
+            accessToken,
+        });
+
+        const newUser = await knex('users').where({ id: newUserId }).first();
+
+        return done(null, newUser)
+    } catch (err) {
+        console.error('Error in DiscordStrategy: ', err)
+        return done(null, false, { message: err });
+    }
+}));
+
+passport.use(new GoogleStrategy({
+    clientID: googleClientId,
+    clientSecret: googleClientSecret,
+    callbackURL: googleCallbackURL
+}, async (accessToken, _, profile, done) => {
+    try {
+        const existingUser = await knex('users').where({ googleId: profile.id }).first();
+        if (existingUser) {
+            return done(null, existingUser);
         }
-        done(null, user_info.id);
-    });
 
-    passport.deserializeUser(async (id: number, done) => {
-        try {
-            const user: Express.User = await User.findById(id);
-            done(null, user);
-        } catch (error) {
-            done(error, null);
+        const [newUserId] = await knex('users').insert({
+            googleId: profile.id,
+            name: profile.displayName,
+            email: profile.emails?.[0].value,
+            avatar: profile.photos?.[0].value,
+            accessToken,
+        });
+
+        const newUser = await knex('users').where({ id: newUserId }).first();
+
+        return done(null, newUser);
+    } catch (err) {
+        console.error('Error in GoogleStrategy: ', err)
+        return done(err, false);
+    }
+}));
+
+passport.use(new LocalStrategy({
+    usernameField: 'username',
+    passwordField: 'password',
+}, async (username: string, password: string, done) => {
+    try {
+        const user = await knex('users').where({ name: username }).first();
+        if (!user) {
+            return done(null, false, { message: 'Invalid username or password' });
         }
-    });
 
-    var scopes = ['identify', 'email']; // 'guilds', 'guild.join'
-
-    passport.use(new DiscordStrategy({
-        clientID: discordClientId,
-        clientSecret: discordClientSecret,
-        callbackURL: discordCallbackURL,
-        scope: scopes
-    }, async (accessToken, _, profile: DiscordProfile, done) => {
-        try {
-            const existingUser = await knex('users').where({ discordId: profile.id }).first();
-            if (existingUser) {
-                return done(null, existingUser);
-            }
-
-            const [newUserId] = await knex('users').insert({
-                discordId: profile.id,
-                name: profile.username,
-                email: profile.email,
-                avatar: profile.avatar,
-                accessToken,
-            });
-
-            const newUser = await knex('users').where({ id: newUserId }).first();
-
-            return done(null, newUser)
-        } catch (err) {
-            console.error('Error in DiscordStrategy: ', err)
-            return done(null, false, { message: err });
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            return done(null, false, { message: 'Invalid username or password' });
         }
-    }));
 
-    passport.use(new GoogleStrategy({
-        clientID: googleClientId,
-        clientSecret: googleClientSecret,
-        callbackURL: googleCallbackURL
-    }, async (accessToken, _, profile, done) => {
-        try {
-            const existingUser = await knex('users').where({ googleId: profile.id }).first();
-            if (existingUser) {
-                return done(null, existingUser);
-            }
+        return done(null, user);
+    } catch (err) {
+        console.error('Error in LocalStrategy: ', err);
+        return done(err);
+    }
+}));
 
-            const [newUserId] = await knex('users').insert({
-                googleId: profile.id,
-                name: profile.displayName,
-                email: profile.emails?.[0].value,
-                avatar: profile.photos?.[0].value,
-                accessToken,
-            });
-
-            const newUser = await knex('users').where({ id: newUserId }).first();
-
-            return done(null, newUser);
-        } catch (err) {
-            console.error('Error in GoogleStrategy: ', err)
-            return done(err, false);
-        }
-    }));
-
-    passport.use(new LocalStrategy({
-        usernameField: 'username',
-        passwordField: 'password',
-    }, async (username: string, password: string, done) => {
-        try {
-            const user = await knex('users').where({ name: username }).first();
-            if (!user) {
-                return done(null, false, { message: 'Invalid username or password' });
-            }
-
-            const isMatch = await bcrypt.compare(password, user.password);
-            if (!isMatch) {
-                return done(null, false, { message: 'Invalid username or password' });
-            }
-
-            return done(null, user);
-        } catch (err) {
-            console.error('Error in LocalStrategy: ', err);
-            return done(err);
-        }
-    }));
-
-    app.use(
-        expressSession({
-            secret: sessionSecret,
-            resave: false,
-            saveUninitialized: false,
-            cookie: {
-                maxAge: 24 * 60 * 60 * 1000,
-                //secure: process.env.NODE_ENV === 'production',
-            },
-        })
-    );
-
-    app.use(flash());
-
-    app.use(passport.initialize());
-    app.use(passport.session());
-};
+export default passport;

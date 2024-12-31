@@ -4,7 +4,9 @@ import path from 'path';
 import cookieParser from 'cookie-parser';
 import { indexRouter } from './routes/index';
 import logger from 'morgan';
-import passportConfig from './config/passport';
+import exsession from './config/session';
+import passport from './config/passport';
+import flash from 'connect-flash';
 import baseurl from './routes/baseurl';
 import cors from 'cors';
 import csurf from './sec/csurf';
@@ -13,7 +15,7 @@ const app = express();
 
 console.log(`-- current mode is ${process.env.NODE_ENV} --`);
 if (baseurl) {
-    console.log(`-- current Base URL is ${baseurl} --`)
+    console.log(`-- current Base URL is https://${process.env.PRODUCTION_HOST}${baseurl}/ --`)
 } else {
     console.log(`-- current Base URL is http://localhost:${process.env.PORT}/ --`)
 }
@@ -30,10 +32,13 @@ app.use(express.json());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-// authorization
-passportConfig(app);
+exsession(app);
 
-// csurf
+app.use(flash());
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 csurf(app);
 
 // global ejs template variables
