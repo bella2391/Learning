@@ -3,7 +3,7 @@
     <head>
         <meta charset='utf-8'>
         <title><%= title %></title>
-        <meta name='viewport' content='width=device-width, initial-scale=1'>
+        <meta name="viewport" content="width=device-width,initial-scale=1">
         <link rel="stylesheet" href="<%= baseurl %>/stylesheets/style.css" />
         <link rel="stylesheet" href="<%=baseurl %>/stylesheets/google_button.css"/>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
@@ -21,6 +21,9 @@
                 </div>
                 <div>
                     <a href="<%= baseurl %>/auth/google"><%- include('./include/google_button') %></a>
+                </div>
+                <div>
+                    <a href="<%= baseurl %>/auth/x"><%- include('./include/x_svg') %></a>
                 </div>
             </div>
             <form action="<%= baseurl %>/signup" method="post">
