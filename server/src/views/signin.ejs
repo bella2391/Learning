@@ -22,6 +22,9 @@
                 <div>
                     <a href="<%= baseurl %>/auth/google"><%- include('./include/google_button') %></a>
                 </div>
+                <div>
+                    <a href="<%= baseurl %>/auth/x"><%- include('./include/x_svg') %></a>
+                </div>
             </div>
             <form action="<%= baseurl %>/signin" method="post">
                 <input type="hidden" name="_csrf" value="<%= csrfToken %>">

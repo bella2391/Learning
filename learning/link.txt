@@ -5,6 +5,8 @@
 # In each item, the lower you go, the older it is in time.
 
 # current main
+# twitter passport
+https://qiita.com/neru-dev/items/857cc27fd69411496388
 # next is twitter
 # guideline for google signin button
 https://developers.google.com/identity/branding-guidelines?hl=ja
@@ -70,6 +72,8 @@ https://zenn.dev/daiyaone/articles/5da30a5b248351
 # official typescript document
 https://www.typescriptlang.org/docs/handbook/intro.html
 # 2. small
+# git pages
+https://prog-8.com/docs/github-pages
 # optional chaining operators
 https://zenn.dev/holy0306/articles/f6d19b47219d27
 # css flex
