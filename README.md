@@ -11,7 +11,7 @@ The `express` module was used to host the server environment on the back end, an
 
 For safety, `typescript` is used in the production environment.
 
-## env
+## Env
 
 ```env
 MYSQL_HOST=localhost
