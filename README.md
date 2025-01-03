@@ -19,7 +19,7 @@ MYSQL_USER=node
 MYSQL_PASSWORD=mysqlsecret
 MYSQL_DATABASE=node
 
-COOKIE_SECRET=randomsecretispreferrd
+COOKIE_SECRET=randomsecretispreferred
 
 DISCORD_CLIENT_ID=0000000000000000000
 DISCORD_CLIENT_SECRET=discordappssecret
