@@ -7,18 +7,14 @@ import logger from 'morgan';
 import exsession from './config/session';
 import passport from './config/passport';
 import flash from 'connect-flash';
-import baseurl from './routes/baseurl';
+import basepath from './util/basepath';
 import cors from 'cors';
 import csurf from './sec/csurf';
 
 const app = express();
 
 console.log(`-- current mode is ${process.env.NODE_ENV} --`);
-if (baseurl) {
-    console.log(`-- current Base URL is https://${process.env.PRODUCTION_HOST}${baseurl}/ --`)
-} else {
-    console.log(`-- current Base URL is http://localhost:${process.env.PORT}/ --`)
-}
+console.log('-- current Base URL is ' + basepath.url);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -43,7 +39,7 @@ csurf(app);
 
 // global ejs template variables
 app.use((_: Request, res: Response, next: NextFunction) => {
-    res.locals.baseurl = baseurl;
+    res.locals.rootpath = basepath.rootpath;
     next();
 });
 

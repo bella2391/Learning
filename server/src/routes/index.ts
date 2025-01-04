@@ -4,7 +4,7 @@ import signupRouter from './signup';
 import signinRouter from './signin';
 import logoutRouter from './logout';
 import authRouter from './auth';
-import baseurl from './baseurl';
+import basepath from '../util/basepath';
 
 const router: express.Router = express.Router();
 
@@ -46,7 +46,7 @@ router.post('/', async (req: Request, res: Response, _: NextFunction) => {
         knex("tasks")
             .insert({ user_id: userId, content: todo })
             .then(() => {
-                res.redirect(`${baseurl}/`);
+                res.redirect(`${basepath.rootpath}/`);
             })
             .catch((err) => {
                 console.error(err);

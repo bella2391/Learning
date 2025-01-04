@@ -1,7 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express';
 import knex from '../db/knex';
 import bcrypt from 'bcrypt';
-import baseurl from './baseurl';
+import basepath from '../util/basepath';
 
 const router: express.Router = express.Router();
 
@@ -35,10 +35,10 @@ router.post('/', (req: Request, res: Response, _: NextFunction) => {
                 knex("users")
                     .insert({name: username, password: hashedPassword})
                     .then(() => {
-                        res.redirect(`${baseurl}/`);
+                        res.redirect(`${basepath.rootpath}/`);
                     })
                     .catch(() => {
-                        res.redirect(`${baseurl}/`);
+                        res.redirect(`${basepath.rootpath}/`);
                     })
                     .catch((err) => {
                         console.error(err);

@@ -3,7 +3,7 @@
     <head>
         <title><%= title %></title>
         <meta name="viewport" content="width=device-width,initial-scale=1">
-        <link rel="stylesheet" href="<%= baseurl %>/stylesheets/style.css" />
+        <link rel="stylesheet" href="<%= rootpath %>/stylesheets/style.css" />
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
               integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     </head>
@@ -16,7 +16,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-6">
-                        <form action="<%= baseurl %>/" method="post">
+                        <form action="<%= rootpath %>/" method="post">
                             <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                             <label>タスクの追加</label>
                             <input required type="text" name="add" placeholder="何をする？"/>
@@ -35,7 +35,7 @@
         <% } else { %>
             <h1>Welcome to the TodoApp</h1>
             <div class="center">
-                <a class="btn btn-primary" href="<%= baseurl %>/signup" role="button">Sign up now!</a>
+                <a class="btn btn-primary" href="<%= rootpath %>/signup" role="button">Sign up now!</a>
             </div>
         <% } %>
 

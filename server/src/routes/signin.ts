@@ -1,6 +1,6 @@
 import express, { Request, Response, NextFunction } from 'express';
 import passport from 'passport';
-import baseurl from './baseurl';
+import basepath from '../util/basepath';
 
 const router: express.Router = express.Router();
 
@@ -19,8 +19,8 @@ router.get('/', (req: Request, res: Response, _: NextFunction) => {
 });
 
 router.post('/', passport.authenticate('local', {
-        successRedirect: `${baseurl}/`,
-        failureRedirect: `${baseurl}/signin`,
+        successRedirect: `${basepath.rootpath}/`,
+        failureRedirect: `${basepath.rootpath}/signin`,
         failureFlash: true,
     }
 ));
