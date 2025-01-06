@@ -19,31 +19,3 @@ declare global {
         }
     }
 }
-
-/*import 'express';
-declare global {
-    namespace Express {
-        interface Request {
-            payload?: Jsonwebtoken.JwtPayload;
-            payload2?: Jsonwebtoken.JwtPayload;
-        }
-    }
-}*/
-
-//import 'Jsonwebtoken';
-/*import { Express } from 'express-serve-static-core';
-
-declare module 'express-serve-static-core' {
-    interface Request {
-        payload?: Jsonwebtoken.JwtPayload;
-        payload2?: Jsonwebtoken.JwtPayload;
-    }
-}*/
-
-/*declare module 'express' {
-    interface Request {
-        csrfToken?: () => string | undefined;
-        payload?: Jsonwebtoken.JwtPayload;
-        payload2?: Jsonwebtoken.JwtPayload;
-    }
-}*/
