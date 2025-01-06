@@ -1,5 +1,6 @@
 import * as dotenv from 'dotenv';
 import * as path from 'path';
+
 const envPath = path.resolve(__dirname, '../.env');
 dotenv.config({ path: envPath });
 
@@ -7,7 +8,16 @@ import passport from 'passport';
 import knex from '../db/knex';
 import bcrypt from 'bcrypt';
 import User from '../models/user';
-import baseurl from '../routes/baseurl';
+import basepath from '../util/basepath';
+import { sendOneTimePass } from '../mail/mail';
+
+function generateOTP(): string {
+    return Math.floor(100000 + Math.random() * 900000).toString();
+}
+
+function getCallBackURL(type: string): string {
+    return basepath.rooturl + `auth/${type}/callback`;
+}
 
 passport.serializeUser((user, done) => {
     if (typeof user !== 'object' || user === null) {
@@ -147,7 +157,8 @@ passport.use('x', new XStrategy({
     }
 }));
 
-import { Strategy as LocalStrategy } from 'passport-local';
+import { IVerifyOptions, Strategy as LocalStrategy } from 'passport-local';
+import { generateToken } from './jwt';
 
 passport.use(new LocalStrategy({
     usernameField: 'username',
@@ -164,7 +175,20 @@ passport.use(new LocalStrategy({
             return done(null, false, { message: 'Invalid username or password' });
         }
 
-        return done(null, user);
+        const token = generateToken(user);
+        if (!user.email) {
+            const redirectUrl = `${basepath.rootpath}/auth/set-email?token=${token}`;
+            return done(null, false, { message: 'Email not set', redirectUrl } as IVerifyOptions);
+        }
+
+        // emailを設定してから5分以内であれば通すのもいいかも(?)(何回も認証が面倒なため)
+        const otp = generateOTP();
+        await sendOneTimePass(user.email, otp);
+        await knex('users').where({ name: username }).update({ otp });
+
+        const redirectUrl: string = `${basepath.rootpath}/auth/verify-otp?token=${token}`;
+
+        return done(null, false, { message: 'Email not set', redirectUrl } as IVerifyOptions);
     } catch (err) {
         console.error('Error in LocalStrategy: ', err);
         return done(err);
@@ -172,22 +196,3 @@ passport.use(new LocalStrategy({
 }));
 
 export default passport;
-
-function getCallBackURL(type: string): string {
-    var callbackurl: string = '';
-    if (process.env.NODE_ENV === 'production') {
-        if (process.env.IS_HTTPS === 'true') {
-            callbackurl += 'https://';
-        }
-        callbackurl += process.env.PRODUCTION_HOST || 'localhost';
-    } else {
-        callbackurl += 'http://localhost';
-    }
-
-    if (process.env.PORT) {
-        callbackurl  += ":" + process.env.PORT;
-    }
-    callbackurl += `${baseurl}/auth/${type}/callback`
-
-    return callbackurl;
-}

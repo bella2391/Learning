@@ -9,7 +9,7 @@
     "start:server:prod": "cross-env NODE_ENV=production PROXY_REVERSE_PASS=/dev nodemon -c nodemon.production.json",
     "start:server:prod:js": "npm run build:server && node ./dist/bin/www.js",
     "start:server:client": "webpack serve --mode=development",
-    "start:server:independence": "ts-node ./server/src/bin/www.ts"
+    "start:server:independence": "ts-node --files ./server/src/bin/www.ts"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
@@ -25,6 +25,7 @@
     "express": "^4.21.2",
     "express-session": "^1.18.1",
     "http-errors": "^2.0.0",
+    "jsonwebtoken": "^9.0.2",
     "knex": "^3.1.0",
     "morgan": "^1.10.0",
     "mysql": "^2.18.1",
@@ -46,9 +47,11 @@
     "@types/cors": "^2.8.17",
     "@types/csurf": "^1.11.5",
     "@types/debug": "^4.1.12",
+    "@types/ejs": "^3.1.5",
     "@types/express": "^5.0.0",
     "@types/express-session": "^1.18.1",
     "@types/http-errors": "^2.0.4",
+    "@types/jsonwebtoken": "^9.0.7",
     "@types/knex": "^0.15.2",
     "@types/morgan": "^1.9.9",
     "@types/node": "^22.10.2",

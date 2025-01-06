@@ -30,6 +30,9 @@ GOOGLE_CLIENT_SECRET=googleoauthclientsecret
 X_CONSUMER_KEY=generatedfromxdeveloperportal
 X_CONSUMER_SECRET=xoauthsecret
 
+ORG_NAME=FMC
+ORG_YEAR=20XX
+ORG_LOGO_URL=https://~/xxx.png
 PRODUCTION_HOST=example.com
 IS_HTTPS=true
 
@@ -37,6 +40,8 @@ SMTP_HOST=smtp.example.com
 SMTP_PORT=587
 SMTP_USER=user@sample.com
 SMTP_PASS=smtpsecret
+
+JWT_SECRET=randomsecret
 ```
 
 ## Learning Directory

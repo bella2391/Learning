@@ -4,7 +4,26 @@ import * as path from 'path';
 const envPath = path.resolve(__dirname, '../.env');
 dotenv.config({ path: envPath });
 
-function getURL(): string {
+function getHPURL(): string {
+    var url: string = '';
+    if (process.env.NODE_ENV === 'production') {
+        if (process.env.IS_HTTPS === 'true') {
+            url += 'https://';
+        }
+        url += process.env.PRODUCTION_HOST || 'localhost';
+    } else {
+        url += 'http://localhost';
+    }
+
+    if (process.env.PORT) {
+        url  += ":" + process.env.PORT;
+    }
+    url +=  '/'
+
+    return url;
+}
+
+function getRootURL(): string {
     var url: string = '';
     if (process.env.NODE_ENV === 'production') {
         if (process.env.IS_HTTPS === 'true') {
@@ -29,10 +48,12 @@ function getRootPath(): string {
         : '';
 }
 
-const url: string = getURL();
+const rooturl: string = getRootURL();
 const rootpath: string = getRootPath();
+const hpurl: string = getHPURL();
 
 export default {
-    url,
+    rooturl,
     rootpath,
+    hpurl,
 };

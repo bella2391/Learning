@@ -113,6 +113,10 @@ hr {
     color: red;
 }
 
+.success {
+    color: green;
+}
+
 .center {
     text-align: center;
 }

@@ -11,7 +11,11 @@ export default (app: Application) => {
     }));
 
     app.use((req, res, next) => {
-        res.locals.csrfToken = req.csrfToken();
+        if (req.csrfToken) {
+            res.locals.csrfToken = req.csrfToken();
+        } else {
+            res.locals.csrfToken = '';
+        }
         next();
     });
 

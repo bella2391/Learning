@@ -14,7 +14,7 @@ import csurf from './sec/csurf';
 const app = express();
 
 console.log(`-- current mode is ${process.env.NODE_ENV} --`);
-console.log('-- current Base URL is ' + basepath.url);
+console.log('-- current Base URL is ' + basepath.rooturl);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -38,8 +38,13 @@ app.use(passport.session());
 csurf(app);
 
 // global ejs template variables
-app.use((_: Request, res: Response, next: NextFunction) => {
+app.use((req: Request, res: Response, next: NextFunction) => {
     res.locals.rootpath = basepath.rootpath;
+    res.locals.hpurl = basepath.hpurl;
+    res.locals.org_name = process.env.ORG_NAME || '';
+    res.locals.org_year = process.env.ORG_YEAR || '';
+    res.locals.org_logourl = process.env.ORG_LOGO_URL || '';
+    res.locals.isAuth = req.isAuthenticated();
     next();
 });
 

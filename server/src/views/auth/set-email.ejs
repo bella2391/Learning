@@ -10,37 +10,21 @@
               integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     </head>
     <body>
-        <%- include('./include/header'); %>
+        <%- include('../include/header'); %>
 
-        <%- include('./include/message'); %>
+        <%- include('../include/message'); %>
 
         <div class="container">
-            <div class="wrapper">
-                <div>
-                    <a href="<%= rootpath %>/auth/discord"><img class="auth-logo" src="https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/636e0a69f118df70ad7828d4_icon_clyde_blurple_RGB.svg"></a>
-                </div>
-                <div>
-                    <a href="<%= rootpath %>/auth/google"><%- include('./include/google_button') %></a>
-                </div>
-                <div>
-                    <a href="<%= rootpath %>/auth/x"><%- include('./include/x_svg') %></a>
-                </div>
-            </div>
-            <form action="<%= rootpath %>/signup" method="post">
+            <form id="myform" action="<%= rootpath %>/set-email" method="post">
                 <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                <label>ユーザー名</label>
-                <input required type="text" name="username"/>
+                <label>メールアドレス</label>
+                <input required type="text" name="email"/>
                 <br>
-                <label>パスワード</label>
-                <input required type="password" name="password"/>
-                <br>
-                <label>パスワード再入力</label>
-                <input required type="text" name="repassword"/>
-                <br>
-                <input class="btn btn-primary" type="submit" value="Sign up"/>
+                <input class="btn btn-primary" type="submit" value="Submit"/>
             </form>
         </div>
 
+        <script src="<%=rootpath %>/javascripts/conform.js"></script>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
                 integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
                 crossorigin="anonymous"></script>

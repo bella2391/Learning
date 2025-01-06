@@ -6,11 +6,7 @@ import basepath from '../util/basepath';
 const router: express.Router = express.Router();
 
 router.get('/', (req: Request, res: Response, _: NextFunction) => {
-    const isAuth = req.isAuthenticated();
-    res.render('signup', {
-        title: 'Sign up',
-        isAuth: isAuth,
-    });
+    res.render('signup', { title: 'Sign up' });
 });
 
 router.post('/', (req: Request, res: Response, _: NextFunction) => {
