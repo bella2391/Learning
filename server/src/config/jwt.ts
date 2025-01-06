@@ -1,6 +1,6 @@
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
-
+import knex from '../db/knex';
 import * as dotenv from 'dotenv';
 import * as path from 'path';
 
@@ -9,7 +9,7 @@ dotenv.config({ path: envPath });
 
 const secret = process.env.JWT_SECRET || 'jwtsecret';
 
-export function generateToken(user, ...payloads: JwtPayload[]): string {
+export async function generateToken(user, save: boolean, ...payloads: JwtPayload[]): Promise<string> {
     var payload: JwtPayload;
     switch (payloads.length) {
         case 0:
@@ -21,7 +21,27 @@ export function generateToken(user, ...payloads: JwtPayload[]): string {
         default:
             throw new Error("You should specify only one payload in 2nd arg");
     }
-    return jwt.sign(payload, secret, { expiresIn: '1h' });
+
+    const token: string = jwt.sign(payload, secret, { expiresIn: '1h' });
+
+    if (save) {
+        // ここ、where句、{ id: user.id, name: user.name }にしないといけないかも。デバッグのときに要検証
+        await knex('users').where({ id: user.id, name: user.name }).update({ token });
+    }
+
+    return token;
+}
+
+export async function getToken(payload: JwtPayload): Promise<string> {
+    const user = await knex('users').where({ id: payload.id, name: payload.name })
+        .select('*')
+        .first();
+
+    if (!user) {
+        throw new Error("Invalid access in getToken function.");
+    }
+
+    return user.token;
 }
 
 export function isEqualPayloads(payload: JwtPayload, payload2: JwtPayload): boolean {

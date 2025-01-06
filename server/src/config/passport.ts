@@ -175,7 +175,7 @@ passport.use(new LocalStrategy({
             return done(null, false, { message: 'Invalid username or password' });
         }
 
-        const token = generateToken(user);
+        const token = await generateToken(user, true);
         if (!user.email) {
             const redirectUrl = `${basepath.rootpath}/auth/set-email?token=${token}`;
             return done(null, false, { message: 'Email not set', redirectUrl } as IVerifyOptions);

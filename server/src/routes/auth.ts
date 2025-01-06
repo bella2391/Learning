@@ -9,7 +9,7 @@ import passport from 'passport';
 import basepath from '../util/basepath'
 import { JwtPayload } from 'jsonwebtoken';
 import knex from '../db/knex';
-import authenticateJWT, { generateToken } from '../config/jwt';
+import authenticateJWT, { generateToken, getToken } from '../config/jwt';
 import { sendVertificationEmail } from '../mail/mail';
 
 const router: express.Router = express.Router();
@@ -18,10 +18,9 @@ router.get('/set-email', authenticateJWT, async (req: Request, res: Response) =>
     if (!req.payload) {
         return;
     }
-    res.render('auth/set-email', { title: 'email setting', id: req.payload.id });
 
     if (req.payload && req.payload2) {
-        const check: boolean = req.payload.id === req.payload2.id && req.payload.name === req.payload2.name
+        const check: boolean = req.payload.id === req.payload2.id && req.payload.name === req.payload2.name;
         if (check) {
             try {
                 await knex('users').where({ id: req.payload.id }).update({ email: req.payload2.email });
@@ -32,25 +31,36 @@ router.get('/set-email', authenticateJWT, async (req: Request, res: Response) =>
         } else {
             throw new Error('Invalid Access.');
         }
+        return;
     }
+
+    const token = req.query.token;
+    res.render('auth/set-email', { title: 'email setting', id: req.payload.id, token });
 });
 
-router.post('/set-email', authenticateJWT, async (req: Request, _: Response) => {
+router.post('/set-email', authenticateJWT, async (req: Request, res: Response) => {
     if (!req.payload) {
         throw new Error('Invalid Access.');
     }
     const { email } = req.body;
 
-    const userId = Number(req.payload?.id);
+    const userId = Number(req.payload.id);
     if (isNaN(userId)) {
         throw new Error('UserId is invalid.');
     }
 
-    const newPayload: JwtPayload = { id: req.payload?.id, name: req.payload?.name, email };
-    const newtoken = generateToken(req.payload, newPayload);
-    const redirectUrl: string = basepath.rooturl + `auth/auth/set-email?token=${newtoken}&token2=${newtoken}`;
+    const oldtoken: string = await getToken(req.payload);
 
-    await sendVertificationEmail(email, redirectUrl);
+    const newPayload: JwtPayload = { id: req.payload.id, name: req.payload.name, email };
+    const newtoken = await generateToken(req.payload, false, newPayload);
+    const redirectUrl: string = basepath.rooturl + `auth/set-email?token=${oldtoken}&token2=${newtoken}`;
+
+    const send = await sendVertificationEmail(email, redirectUrl);
+    if (send) {
+        res.render('index', { title: 'ToDoApp', successMessage: [ 'Sent email successfully!' ] });
+    } else {
+        res.render('index', { title: 'ToDoApp', errorMessage: [ 'Failed to send email.' ] });
+    }
 });
 
 router.post('/verify-otp', authenticateJWT, async (req: Request, res: Response): Promise<void> => {

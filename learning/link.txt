@@ -72,6 +72,8 @@ https://zenn.dev/daiyaone/articles/5da30a5b248351
 # official typescript document
 https://www.typescriptlang.org/docs/handbook/intro.html
 # 2. small
+# text pre-entered box
+https://www.nishishi.com/javascript-tips/form-focus.html
 # confirm dailog by client js
 https://oopsoop.com/form-confirmation-with-javascript/
 # git pages

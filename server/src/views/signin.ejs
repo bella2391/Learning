@@ -29,7 +29,7 @@
             <form action="<%= rootpath %>/signin" method="post">
                 <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                 <label>ユーザー名</label>
-                <input required type="text" name="username"/>
+                <input required id="focus" type="text" name="username"/>
                 <br>
                 <label>パスワード</label>
                 <input required type="password" name="password"/>
@@ -37,6 +37,8 @@
                 <input class="btn btn-primary" type="submit" value="Sign in"/>
             </form>
         </div>
+
+        <script src="<%= rootpath %>/javascripts/focus.js"></script>
 
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
                 integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

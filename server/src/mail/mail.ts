@@ -5,12 +5,13 @@ import nodemailer from 'nodemailer';
 const envPath = path.resolve(__dirname, '../../.env');
 dotenv.config({ path: envPath });
 
-import template from '../util/template';
+import { renderTemplate } from '../util/template';
+import basepath from '../util/basepath';
 
 const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
     port: Number(process.env.SMTP_PORT),
-    secure: false,
+    secure: Number(process.env.SMTP_PORT) === 465,
     requireTLS: true,
     auth: {
         user: process.env.SMTP_USER,
@@ -18,28 +19,44 @@ const transporter = nodemailer.createTransport({
     },
 });
 
-export async function sendOneTimePass(recipient: string, pass: string) {
-    const html = await template.renderTemplate('../views/auth/onetime.ejs', { onetime: pass });
-    await sendmail(recipient, "ワンタイムパスワード", html);
+const data = {
+    hpurl: basepath.hpurl,
+    rooturl: basepath.rooturl,
+    org_logourl: process.env.ORG_LOGO_URL || '',
+    org_year: process.env.ORG_YEAR || '',
+    org_name: process.env.ORG_NAME || '',
+};
+
+export async function sendOneTimePass(recipient: string, pass: string): Promise<boolean> {
+    data['onetime'] = pass;
+    const html = await renderTemplate(path.resolve(__dirname, '../views/auth/onetime.ejs'), data);
+    return await sendmail(recipient, "ワンタイムパスワード", html);
 }
 
-export async function sendVertificationEmail(recipient: string, redirectUrl: string) {
-    const html = await template.renderTemplate('../views/auth/confirm-email.ejs', { redirect_url: redirectUrl });
-    await sendmail(recipient, "FMCアカウントのメールアドレス認証", html);
+export async function sendVertificationEmail(recipient: string, redirectUrl: string): Promise<boolean> {
+    console.log('send email confirming message....');
+    data['redirect_url'] = redirectUrl;
+    console.log(data);
+    const html = await renderTemplate(path.resolve(__dirname, '../views/auth/confirm-email.ejs'), data);
+    console.log(html);
+    return await sendmail(recipient, "FMCアカウントのメールアドレス認証", html);
 }
 
-async function sendmail(recipient: string, subject: string, body: string) {
+async function sendmail(recipient: string, subject: string, html: string): Promise<boolean> {
+    console.log('sending mail...')
     try {
         const mailOptions = {
             from: `"FMC Support" <${process.env.SMTP_USER}>`,
             to: recipient,
             subject: subject,
-            html: body,
+            html,
         };
 
         const info = await transporter.sendMail(mailOptions);
         console.log('sent mail successfully: %s', info.messageId)
+        return true;
     } catch (error) {
         console.error('error occurred while sending mail: ', error);
+        return false;
     }
 }

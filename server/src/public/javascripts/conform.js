@@ -4,7 +4,7 @@ myForm.addEventListener('submit', function(event) {
 
     let confirmMessage = '以下の内容で送信してもよろしいですか？\n\n';
     for (const [ fieldName, fieldValue ] of data) {
-        if (fieldName === '_csrf') {
+        if (fieldName === '_csrf' || fieldName === "token") {
             continue;
         } else {
             confirmMessage += `${fieldName}: ${fieldValue}\n`

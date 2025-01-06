@@ -15,16 +15,21 @@
         <%- include('../include/message'); %>
 
         <div class="container">
-            <form id="myform" action="<%= rootpath %>/set-email" method="post">
+            <form id="myform" action="<%= rootpath %>/auth/set-email" method="post">
                 <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <% if (typeof token !== 'undefined') { %>
+                    <input type="hidden" name="token" value="<%= token %>">
+                <% } %>
                 <label>メールアドレス</label>
-                <input required type="text" name="email"/>
+                <input required id="focus" type="text" name="email"/>
                 <br>
                 <input class="btn btn-primary" type="submit" value="Submit"/>
             </form>
         </div>
 
         <script src="<%=rootpath %>/javascripts/conform.js"></script>
+        <script src="<%= rootpath %>/javascripts/focus.js"></script>
+
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
                 integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
                 crossorigin="anonymous"></script>
