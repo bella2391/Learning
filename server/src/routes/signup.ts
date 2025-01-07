@@ -31,10 +31,7 @@ router.post('/', (req: Request, res: Response, _: NextFunction) => {
                 knex("users")
                     .insert({name: username, password: hashedPassword})
                     .then(() => {
-                        res.redirect(`${basepath.rootpath}/`);
-                    })
-                    .catch(() => {
-                        res.redirect(`${basepath.rootpath}/`);
+                        res.render('signin', { title: 'Sign in', successMessage: [ 'Account create successfully!' ] });
                     })
                     .catch((err) => {
                         console.error(err);
