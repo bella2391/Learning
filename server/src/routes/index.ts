@@ -16,7 +16,6 @@ router.get('/', async (req: Request, res: Response, _: NextFunction) => {
             .where({ user_id: userId })
             .then((results) => {
                 res.render('index', {
-                    title: 'ToDo App',
                     todos: results,
                     isAuth: true,
                 });
@@ -24,14 +23,12 @@ router.get('/', async (req: Request, res: Response, _: NextFunction) => {
             .catch((err) => {
                 console.error(err);
                 res.render('index', {
-                    title: 'ToDo App',
                     isAuth: true,
                     errorMessage: [err.sqlMessage],
                 });
             });
     } else {
         res.render('index', {
-            title: 'ToDo App',
             isAuth: false,
         });
     }
@@ -51,7 +48,6 @@ router.post('/', async (req: Request, res: Response, _: NextFunction) => {
             .catch((err) => {
                 console.error(err);
                 res.render('index', {
-                    title: 'ToDo App',
                     isAuth: true,
                     errorMessage: [err.sqlMessage],
                 });

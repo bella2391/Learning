@@ -25,7 +25,6 @@ export async function generateToken(user, save: boolean, ...payloads: JwtPayload
     const token: string = jwt.sign(payload, secret, { expiresIn: '1h' });
 
     if (save) {
-        // ここ、where句、{ id: user.id, name: user.name }にしないといけないかも。デバッグのときに要検証
         await knex('users').where({ id: user.id, name: user.name }).update({ token });
     }
 

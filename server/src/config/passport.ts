@@ -177,16 +177,15 @@ passport.use(new LocalStrategy({
 
         const token = await generateToken(user, true);
         if (!user.email) {
-            const redirectUrl = `${basepath.rootpath}/auth/set-email?token=${token}`;
+            const redirectUrl = `${basepath.rooturl}/auth/set-email?token=${token}`;
             return done(null, false, { message: 'Email not set', redirectUrl } as IVerifyOptions);
         }
 
-        // emailを設定してから5分以内であれば通すのもいいかも(?)(何回も認証が面倒なため)
         const otp = generateOTP();
         await sendOneTimePass(user.email, otp);
         await knex('users').where({ name: username }).update({ otp });
 
-        const redirectUrl: string = `${basepath.rootpath}/auth/verify-otp?token=${token}`;
+        const redirectUrl: string = `${basepath.rooturl}auth/verify-otp?token=${token}`;
 
         return done(null, false, { message: 'Email not set', redirectUrl } as IVerifyOptions);
     } catch (err) {

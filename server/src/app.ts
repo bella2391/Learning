@@ -39,6 +39,7 @@ csurf(app);
 
 // global ejs template variables
 app.use((req: Request, res: Response, next: NextFunction) => {
+    res.locals.application_name = process.env.APP_NAME || 'App';
     res.locals.rootpath = basepath.rootpath;
     res.locals.hpurl = basepath.hpurl;
     res.locals.org_name = process.env.ORG_NAME || '';

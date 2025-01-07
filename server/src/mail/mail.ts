@@ -34,16 +34,12 @@ export async function sendOneTimePass(recipient: string, pass: string): Promise<
 }
 
 export async function sendVertificationEmail(recipient: string, redirectUrl: string): Promise<boolean> {
-    console.log('send email confirming message....');
     data['redirect_url'] = redirectUrl;
-    console.log(data);
     const html = await renderTemplate(path.resolve(__dirname, '../views/auth/confirm-email.ejs'), data);
-    console.log(html);
     return await sendmail(recipient, "FMCアカウントのメールアドレス認証", html);
 }
 
 async function sendmail(recipient: string, subject: string, html: string): Promise<boolean> {
-    console.log('sending mail...')
     try {
         const mailOptions = {
             from: `"FMC Support" <${process.env.SMTP_USER}>`,
@@ -53,7 +49,10 @@ async function sendmail(recipient: string, subject: string, html: string): Promi
         };
 
         const info = await transporter.sendMail(mailOptions);
+
+        console.log(html);
         console.log('sent mail successfully: %s', info.messageId)
+
         return true;
     } catch (error) {
         console.error('error occurred while sending mail: ', error);

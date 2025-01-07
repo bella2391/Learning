@@ -42,6 +42,8 @@ SMTP_USER=user@sample.com
 SMTP_PASS=smtpsecret
 
 JWT_SECRET=randomsecret
+
+APP_NAME=Sample App
 ```
 
 ## Learning Directory

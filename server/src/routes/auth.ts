@@ -24,7 +24,7 @@ router.get('/set-email', authenticateJWT, async (req: Request, res: Response) =>
         if (check) {
             try {
                 await knex('users').where({ id: req.payload.id }).update({ email: req.payload2.email });
-                res.render('signin', { successMessage: [ 'Email setting done successfully' ] });
+                res.render('signin', { title: 'Signin', successMessage: [ 'Email setting done successfully' ] });
             } catch (err) {
                 res.status(500).send('Error updating email.');
             }
@@ -35,56 +35,66 @@ router.get('/set-email', authenticateJWT, async (req: Request, res: Response) =>
     }
 
     const token = req.query.token;
-    res.render('auth/set-email', { title: 'email setting', id: req.payload.id, token });
+    res.render('auth/verify-form', { token, title: 'email setting', auth_path: '/set-email', label: 'メールアドレス', input_name: 'email', });
 });
 
 router.post('/set-email', authenticateJWT, async (req: Request, res: Response) => {
     if (!req.payload) {
         throw new Error('Invalid Access.');
     }
-    const { email } = req.body;
 
-    const userId = Number(req.payload.id);
-    if (isNaN(userId)) {
-        throw new Error('UserId is invalid.');
-    }
+    const { email } = req.body;
 
     const oldtoken: string = await getToken(req.payload);
 
     const newPayload: JwtPayload = { id: req.payload.id, name: req.payload.name, email };
     const newtoken = await generateToken(req.payload, false, newPayload);
-    const redirectUrl: string = basepath.rooturl + `auth/set-email?token=${oldtoken}&token2=${newtoken}`;
+
+    const redirectUrl: string =  `${basepath.rooturl}auth/set-email?token=${oldtoken}&token2=${newtoken}`;
 
     const send = await sendVertificationEmail(email, redirectUrl);
     if (send) {
-        res.render('index', { title: 'ToDoApp', successMessage: [ 'Sent email successfully!' ] });
+        res.render('index', { successMessage: [ 'Sent email successfully!' ] });
     } else {
-        res.render('index', { title: 'ToDoApp', errorMessage: [ 'Failed to send email.' ] });
+        res.render('index', { errorMessage: [ 'Failed to send email.' ] });
     }
+});
+
+router.get('/verify-otp', authenticateJWT, async (req: Request, res: Response) => {
+    if (!req.payload) {
+        return;
+    }
+
+    const token = req.query.token;
+
+    res.render('auth/verify-form', { token, title: 'otp confirm', auth_path: '/verify-otp', label: 'ワンタイムパスワード', input_name: 'otp', });
 });
 
 router.post('/verify-otp', authenticateJWT, async (req: Request, res: Response): Promise<void> => {
     if (!req.payload) {
         return;
     }
+
     const { otp } = req.body;
 
     try {
-        const user = await knex('users').where({ id: req.payload.id, name: req.payload.name }).first();
-
         const isValid = await knex('users').where({ id: req.payload.id, name: req.payload.name, otp }).first();
         if (!isValid) {
             res.status(400).send('Invalid OTP');
             return;
         }
 
+        await knex('users').where({ id: req.payload.id, name: req.payload.name, otp }).update({ otp: null });
+
+        const user = await knex('users').where({ id: req.payload.id, name: req.payload.name }).first();
         req.login(user, (err) => {
             if (err) {
                 res.status(500).send('Error logging in');
                 return;
             }
-            res.redirect(`${basepath.rootpath}/`)
-        })
+
+            res.redirect(`${basepath.rootpath}/`);
+        });
     } catch (error) {
         res.status(500).send('Error verifying OTP.');
     }

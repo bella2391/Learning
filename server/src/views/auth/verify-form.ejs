@@ -15,13 +15,13 @@
         <%- include('../include/message'); %>
 
         <div class="container">
-            <form id="myform" action="<%= rootpath %>/auth/set-email" method="post">
+            <form id="myform" action="<%= rootpath %>/auth<%= auth_path %>" method="post">
                 <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                 <% if (typeof token !== 'undefined') { %>
                     <input type="hidden" name="token" value="<%= token %>">
                 <% } %>
-                <label>メールアドレス</label>
-                <input required id="focus" type="text" name="email"/>
+                <label><%= label %></label>
+                <input required id="focus" type="text" name="<%= input_name %>"/>
                 <br>
                 <input class="btn btn-primary" type="submit" value="Submit"/>
             </form>
