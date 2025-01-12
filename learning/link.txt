@@ -1,4 +1,7 @@
 # main
+# current main
+https://www.tohoho-web.com/python/function.html
+# old main
 # large
 # tohoho
 https://www.tohoho-web.com/python/
