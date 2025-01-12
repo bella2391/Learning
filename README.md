@@ -25,7 +25,7 @@ DISCORD_CLIENT_ID=0000000000000000000
 DISCORD_CLIENT_SECRET=discordappssecret
 
 GOOGLE_CLIENT_ID=000000000000-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.apps.googleusercontent.com
-GOOGLE_CLIENT_SECRET=googleoauthclientsecret
+GOOGLE_CLIENT_SECRET=googleoauthclientsecrets
 
 X_CONSUMER_KEY=generatedfromxdeveloperportal
 X_CONSUMER_SECRET=xoauthsecret
