@@ -1,0 +1,22 @@
+# main
+# large
+https://qiita.com/1ntegrale9/items/9d570ef8175cf178468f
+# small
+# create venv environment
+https://qiita.com/fiftystorm36/items/b2fd47cf32c7694adc2e
+
+# sub
+# what is __init__.py?
+https://qiita.com/msi/items/d91ea3900373ff8b09d7
+https://qiita.com/dev-satoshi/items/44dd0e868af0c9e6ccf1
+# how to use dotenv package
+https://qiita.com/shown_it/items/2b85434e4e2658c484f4
+
+# ref
+# official discord.py docs
+# get started
+https://discordpy.readthedocs.io/ja/latest/
+# apis
+https://discordpy.readthedocs.io/ja/latest/api.html#discord-api-events
+
+# abandaned
