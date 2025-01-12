@@ -1,7 +1,12 @@
-# Learning-Java-TypeScript
+# Java-TypeScript
 
-I created this repository simply because I wanted to do something with node.js(main: javascript, typescript)!  
-There are other repositories, [Learning-Rust](https://github.com/bella2391/Learning-Rust) for learning.  
+I created this repository simply because I wanted to do something with this lang.
+
+## Other Learning Repo
+
+There are other repositories for learning.  
+
+* [Rust](https://github.com/bella2391/Learning/tree/rust)
 
 ## Description
 
