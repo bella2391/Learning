@@ -13,19 +13,19 @@ THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR I
 このリポジトリは、Discord、X、およびGoogleのロゴを含んでいます。各ロゴの使用は以下のガイドラインに従います。
 
 1. **Discordのロゴ**: 
-   - 公式ブランドガイドライン（https://discord.com/branding）を遵守すること。
+   - 公式ブランドガイドライン（ https://discord.com/branding ）を遵守すること。
    - ロゴの編集、変更、歪め、再カラー、再構成を行わないこと。
    - ロゴの使用は非営利目的のみに限ること。
    - ロゴの使用に関する問い合わせや許可は、Discordの公式チームに確認すること。
 
 2. **Xのロゴ**: 
-   - 公式ブランドツールキット（https://about.x.com/ja/who-we-are/brand-toolkit）を遵守すること。
+   - 公式ブランドツールキット（ https://about.x.com/ja/who-we-are/brand-toolkit ）を遵守すること。
    - ロゴの編集、変更、歪め、再カラー、再構成を行わないこと。
    - ロゴの使用は非営利目的のみに限ること。
    - ロゴの使用に関する問い合わせや許可は、Xの公式チームに確認すること。
 
 3. **Googleのロゴ**: 
-   - 公式ブランドガイドライン（https://developers.google.com/identity/branding-guidelines?hl=ja）を遵守すること。
+   - 公式ブランドガイドライン（ https://developers.google.com/identity/branding-guidelines?hl=ja ）を遵守すること。
    - ロゴの編集、変更、歪め、再カラー、再構成を行わないこと。
    - ロゴの使用は非営利目的のみに限ること。
    - ロゴの使用に関する問い合わせや許可は、Googleの公式チームに確認すること。
@@ -37,8 +37,8 @@ THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR I
 This project includes font(s) that are licensed under the SIL Open Font License, Version 1.1.
 The full license text of the SIL Open Font License is included below:
 
-本ソフトでは表示フォントに「KHドットフォント」(http://jikasei.me/font/kh-dotfont/) を使用しています。
-Licensed under SIL Open Font License 1.1 (http://scripts.sil.org/OFL)
+本ソフトでは表示フォントに「KHドットフォント」( http://jikasei.me/font/kh-dotfont/ ) を使用しています。
+Licensed under SIL Open Font License 1.1 ( http://scripts.sil.org/OFL )
 © Keitarou Hiraki, Font Silo 1990-2015.
 
 -----------------------------------------------------------
@@ -130,9 +130,9 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 
 ---
 
-Additionally, this project includes the font "美咲フォント TTF 版" (https://littlelimit.net/misaki.htm), which is licensed under the MIT License:
+Additionally, this project includes the font "美咲フォント TTF 版" ( https://littlelimit.net/misaki.htm ), which is licensed under the MIT License:
 
-Copyright © Num Kadoma (https://littlelimit.net/about.htm)
+Copyright © Num Kadoma ( https://littlelimit.net/about.htm )
 
 These fonts are free software.
 Unlimited permission is granted to use, copy, and distribute them, with or without modification, either commercially or noncommercially.
