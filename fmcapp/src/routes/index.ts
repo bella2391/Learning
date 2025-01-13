@@ -9,6 +9,17 @@ import basepath from '../util/basepath';
 const router: express.Router = express.Router();
 
 router.get('/', async (req: Request, res: Response, _: NextFunction) => {
+    const referer = req.headers.referer || req.get('referer');
+    console.log("referer: ", referer);
+
+    if (req.session.views) {
+        req.session.views++;
+        console.log("someone views count: ", req.session.views);
+    } else {
+        req.session.views = 1;
+        console.log("New user visited!");
+    }
+
     if (req.isAuthenticated()) {
         const userId: number = (req.user as any).id;
         knex('tasks')
