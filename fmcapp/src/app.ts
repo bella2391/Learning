@@ -50,6 +50,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     res.locals.isAuth = req.isAuthenticated();
     res.locals.refurl = req.headers.referer || req.get('referer');
     res.locals.current_path = req.path;
+    res.locals.discord_url = process.env.DISCORD_URL || '';
     next();
 });
 
