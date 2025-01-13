@@ -7,13 +7,21 @@
         <ul class="navbar-nav">
             <% if (isAuth) { %>
                 <li class="nav-item">
-                    <a class="nav-link" href="<%= rootpath %>/logout">Logout</a>
+                    <a class="nav-link" href="<%= rootpath %>/logout">ログアウト</a>
                 </li>
             <% } else { %>
                 <li class="nav-item">
-                    <a class="nav-link" href="<%= rootpath %>/signin">Sign in</a>
+                    <a class="nav-link" href="<%= rootpath %>/signin">サインイン</a>
                 </li>
             <% } %>
+            <% if (refurl) { %>
+                <li class="nav-item">
+                    <a class="nav-link" href="<%= refurl %>">前のページ</a>
+                </li>
+            <% } %>
+            <li class="nav-item">
+                <a class="nav-link" href="<%= hpurl %>">ホームページ</a>
+            </li>
         </ul>
     </div>
 </nav>

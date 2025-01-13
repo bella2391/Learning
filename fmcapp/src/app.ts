@@ -48,7 +48,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     res.locals.org_year = process.env.ORG_YEAR || '';
     res.locals.org_logourl = process.env.ORG_LOGO_URL || '';
     res.locals.isAuth = req.isAuthenticated();
-    res.locals.referer = req.headers.referer || req.get('referer');
+    res.locals.refurl = req.headers.referer || req.get('referer');
     next();
 });
 
