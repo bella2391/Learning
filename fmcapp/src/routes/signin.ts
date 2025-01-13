@@ -5,6 +5,12 @@ import basepath from '../util/basepath';
 const router: express.Router = express.Router();
 
 router.get('/', (req: Request, res: Response, _: NextFunction) => {
+    if (req.query.n) {
+        const n: number = Number(req.query.n);
+        if (!isNaN(n)) {
+            req.session.n = n;
+        }
+    }
     res.render('signin', { title: 'Sign in' });
 });
 
@@ -23,7 +29,11 @@ router.post('/', (req: Request, res: Response, next: NextFunction) => {
             if (err) {
                 return next(err);
             }
-            return res.redirect(`${basepath.rootpath}/`)
+            if (req.session.n) {
+                return res.redirect('/minecraft/uuid_check.php');
+            } else {
+                return res.redirect(`${basepath.rootpath}/`);
+            }
         });
     })(req, res, next);
 });
