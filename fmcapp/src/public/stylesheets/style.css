@@ -233,3 +233,7 @@ form > label {
     -ms-transform: translate(-50%, -50%);
     height: 100%;
 }
+
+.simple-flex {
+    display: flex;
+}

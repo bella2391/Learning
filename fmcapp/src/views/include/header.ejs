@@ -1,11 +1,16 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="<%= rootpath %>/"><%= application_name %></a>
-    <!--<div class="d-lg-none">
-        <div class="trim_header profile"><a><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjaRpGoUYOpSdkVNwHyRPciNYVZ7I2iLEiIfDXPdQVbzYPqz2I30NihR8QlX_7v7P2jcdd4SnaW2kF1ja-6T3KjWiY1NVm8lOR5QYlH_XHEo9Xsh5O7Urk4H4SzW5qnILP0PFGXpgTZUMzF/s400/medical_koutai_woman.png" alt="User Icon"></a></div>
-    </div>-->
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+    <div class="simple-flex">
+        <% if (isAuth) { %>
+        <% } else { %>
+            <div class="trim_header profile d-lg-none">
+                <img src="<%= rootpath %>/images/icon/default/<%= default_icon_path %>" alt="User Icon">
+            </div>
+        <% } %>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
             <% if (isAuth) { %>
@@ -32,9 +37,12 @@
                 <a class="nav-link" href="<%= hpurl %>">ホームページ</a>
             </li>
         </ul>
-        <div class="trim_header profile d-none d-lg-block">
-            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjaRpGoUYOpSdkVNwHyRPciNYVZ7I2iLEiIfDXPdQVbzYPqz2I30NihR8QlX_7v7P2jcdd4SnaW2kF1ja-6T3KjWiY1NVm8lOR5QYlH_XHEo9Xsh5O7Urk4H4SzW5qnILP0PFGXpgTZUMzF/s400/medical_koutai_woman.png" alt="User Icon">
-        </div>
+        <% if (isAuth) { %>
+        <% } else { %>
+            <div class="trim_header profile d-none d-lg-block">
+                <img src="<%= rootpath %>/images/icon/default/<%= default_icon_path %>" alt="User Icon">
+            </div>
+        <% } %>
     </div>
 </nav>
 <br>

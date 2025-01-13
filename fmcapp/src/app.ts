@@ -11,6 +11,7 @@ import basepath from './util/basepath';
 import cors from 'cors';
 import csurf from './sec/csurf';
 import favicon from 'serve-favicon';
+import { getRandomFileName } from './util/file';
 
 const app = express();
 
@@ -51,6 +52,10 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     res.locals.refurl = req.headers.referer || req.get('referer');
     res.locals.current_path = req.path;
     res.locals.discord_url = process.env.DISCORD_URL || '';
+
+    const defaultIconPath: string = path.join(__dirname, 'public', 'images', 'icon', 'default');
+    res.locals.default_icon_path = getRandomFileName(defaultIconPath);
+
     next();
 });
 
