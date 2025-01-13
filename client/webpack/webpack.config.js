@@ -1,13 +1,13 @@
 const path = require('path');
 module.exports = {
-    entry: { bundle: "./src/app.ts" },
+    entry: { bundle: "./client/src/app.ts" },
     output: {
         path: path.join(__dirname, "main"),
         filename: "[name].js"
     },
     resolve: { extensions: [".ts", ".js"] },
     devServer: {
-        static: { directory: path.join(__dirname, "src/main") },
+        static: { directory: path.join(__dirname, "../src/main") },
         port: 8081
     },
     module: {
