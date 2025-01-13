@@ -1,6 +1,6 @@
 {
     "restartable": "rs",
-    "watch": ["../fmc/src", "../client/src"],
+    "watch": ["./fmcapp/src", "./client/src"],
     "ignore": ["tests/**/*.ts"],
     "ext": "ts",
     "exec": "npm run start:fmcapp:independence"

@@ -1,6 +1,6 @@
 {
     "restartable": "rs",
-    "watch": ["../todoapp/src", "../client/src"],
+    "watch": ["./todoapp/src", "./client/src"],
     "ignore": ["tests/**/*.ts"],
     "ext": "ts",
     "exec": "npm run start:todoapp:independence"
