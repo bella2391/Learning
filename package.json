@@ -5,13 +5,11 @@
   "scripts": {
     "build:client": "webpack --config ./client/webpack/prod.config.js",
     "start:server:client": "webpack serve --config ./client/webpack/webpack.config.js --mode=development",
-
     "build:todoapp": "cd todoapp && tsc",
     "start:todoapp:dev": "cross-env NODE_ENV=development PORT=3001 nodemon --config ./todoapp/nodemon.dev.json",
     "start:todoapp:prod": "cross-env NODE_ENV=production PROXY_REVERSE_PASS=/dev nodemon --config ./todoapp/nodemon.prod.json",
     "start:todoapp:prod:js": "npm run build:todoapp && node ./dist/bin/www.js",
     "start:todoapp:independence": "ts-node --files ./todoapp/src/bin/www.ts",
-
     "build:fmcapp": "cd fmcapp && tsc",
     "start:fmcapp:dev": "cross-env NODE_ENV=development PORT=3001 nodemon --config ./fmcapp/nodemon.dev.json",
     "start:fmcapp:prod": "cross-env NODE_ENV=production PROXY_REVERSE_PASS=/dev nodemon --config ./fmcapp/nodemon.prod.json",
@@ -19,6 +17,7 @@
     "start:fmcapp:independence": "ts-node --files ./fmcapp/src/bin/www.ts"
   },
   "dependencies": {
+    "@types/serve-favicon": "^2.5.7",
     "bcrypt": "^5.1.1",
     "connect-flash": "^0.1.1",
     "connect-session-sequelize": "^7.1.7",
@@ -44,6 +43,7 @@
     "passport-local": "^1.0.0",
     "passport-twitter": "^1.0.4",
     "sequelize": "^6.37.5",
+    "serve-favicon": "^2.5.0",
     "sqlite3": "^5.1.7",
     "xmldom": "^0.6.0"
   },

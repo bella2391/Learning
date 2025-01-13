@@ -10,6 +10,7 @@ import flash from 'connect-flash';
 import basepath from './util/basepath';
 import cors from 'cors';
 import csurf from './sec/csurf';
+import favicon from 'serve-favicon';
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 exsession(app);
 
