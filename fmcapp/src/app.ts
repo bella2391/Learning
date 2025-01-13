@@ -49,6 +49,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     res.locals.org_logourl = process.env.ORG_LOGO_URL || '';
     res.locals.isAuth = req.isAuthenticated();
     res.locals.refurl = req.headers.referer || req.get('referer');
+    res.locals.current_path = req.path;
     next();
 });
 

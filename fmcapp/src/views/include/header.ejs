@@ -10,9 +10,15 @@
                     <a class="nav-link" href="<%= rootpath %>/logout">ログアウト</a>
                 </li>
             <% } else { %>
-                <li class="nav-item">
-                    <a class="nav-link" href="<%= rootpath %>/signin">サインイン</a>
-                </li>
+                <% if (current_path == "/signin") { %>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<%= rootpath %>/signup">サインアップ</a>
+                    </li>
+                <% } else { %>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<%= rootpath %>/signin">サインイン</a>
+                    </li>
+                <% } %>
             <% } %>
             <% if (refurl) { %>
                 <li class="nav-item">

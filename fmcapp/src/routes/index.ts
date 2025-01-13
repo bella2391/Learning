@@ -9,8 +9,7 @@ import basepath from '../util/basepath';
 const router: express.Router = express.Router();
 
 router.get('/', async (req: Request, res: Response, _: NextFunction) => {
-    const referer = req.headers.referer || req.get('referer');
-    console.log("referer: ", referer);
+    console.log(req.path);
 
     if (req.session.views) {
         req.session.views++;
