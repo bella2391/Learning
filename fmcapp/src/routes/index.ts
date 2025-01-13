@@ -20,7 +20,8 @@ router.get('/', async (req: Request, res: Response, _: NextFunction) => {
     }
 
     if (req.isAuthenticated()) {
-        const userId: number = (req.user as any).id;
+        const user = req.user as any;
+        const userId: number = user.id;
         knex('tasks')
             .select("*")
             .where({ user_id: userId })

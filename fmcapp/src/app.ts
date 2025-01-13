@@ -53,8 +53,18 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     res.locals.current_path = req.path;
     res.locals.discord_url = process.env.DISCORD_URL || '';
 
-    const defaultIconPath: string = path.join(__dirname, 'public', 'images', 'icon', 'default');
-    res.locals.default_icon_path = getRandomFileName(defaultIconPath);
+    const defaultAvatarPath: string = path.join(__dirname, 'public', 'images', 'avatar', 'default');
+    const randomAvatarFileName = getRandomFileName(defaultAvatarPath);
+    res.locals.avatar_path = path.join('images', 'avatar', 'default', randomAvatarFileName);
+
+    if (req.isAuthenticated()) {
+        const user = req.user as any;
+        if (user.custom_avatar) {
+            res.locals.avatar_path = user.custom_avatar;
+        } else if (user.avatar) {
+            res.locals.avatar_path = user.avatar;
+        }
+    }
 
     next();
 });

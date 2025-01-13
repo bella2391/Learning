@@ -1,12 +1,9 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="<%= rootpath %>/"><%= application_name %></a>
     <div class="simple-flex">
-        <% if (isAuth) { %>
-        <% } else { %>
-            <div class="trim_header profile d-lg-none">
-                <img src="<%= rootpath %>/images/icon/default/<%= default_icon_path %>" alt="User Icon">
-            </div>
-        <% } %>
+        <div class="trim_header profile d-lg-none">
+            <img src="<%= avatar_path %>" alt="User Icon">
+        </div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -37,12 +34,9 @@
                 <a class="nav-link" href="<%= hpurl %>">ホームページ</a>
             </li>
         </ul>
-        <% if (isAuth) { %>
-        <% } else { %>
-            <div class="trim_header profile d-none d-lg-block">
-                <img src="<%= rootpath %>/images/icon/default/<%= default_icon_path %>" alt="User Icon">
-            </div>
-        <% } %>
+        <div class="trim_header profile d-none d-lg-block">
+            <img src="<%= avatar_path %>" alt="User Icon">
+        </div>
     </div>
 </nav>
 <br>
