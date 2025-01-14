@@ -4,12 +4,13 @@ import path from 'path';
 import cookieParser from 'cookie-parser';
 import { indexRouter } from './routes/index';
 import logger from 'morgan';
-import exsession from './config/session';
+import session from './config/session';
 import passport from './config/passport';
 import flash from 'connect-flash';
 import basepath from './util/basepath';
 import cors from 'cors';
 import csurf from './sec/csurf';
+import localvals from './config/localvals';
 
 const app = express();
 
@@ -28,7 +29,7 @@ app.use(express.json());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-exsession(app);
+app.use(session);
 
 app.use(flash());
 
@@ -38,16 +39,7 @@ app.use(passport.session());
 csurf(app);
 
 // global ejs template variables
-app.use((req: Request, res: Response, next: NextFunction) => {
-    res.locals.application_name = process.env.APP_NAME || 'App';
-    res.locals.rootpath = basepath.rootpath;
-    res.locals.hpurl = basepath.hpurl;
-    res.locals.org_name = process.env.ORG_NAME || '';
-    res.locals.org_year = process.env.ORG_YEAR || '';
-    res.locals.org_logourl = process.env.ORG_LOGO_URL || '';
-    res.locals.isAuth = req.isAuthenticated();
-    next();
-});
+app.use(localvals);
 
 // router
 app.use('/', indexRouter);

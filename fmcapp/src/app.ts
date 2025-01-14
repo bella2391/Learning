@@ -4,14 +4,14 @@ import path from 'path';
 import cookieParser from 'cookie-parser';
 import { indexRouter } from './routes/index';
 import logger from 'morgan';
-import exsession from './config/session';
+import session from './config/session';
 import passport from './config/passport';
 import flash from 'connect-flash';
 import basepath from './util/basepath';
 import cors from 'cors';
 import csurf from './sec/csurf';
 import favicon from 'serve-favicon';
-import { getRandomFileName } from './util/file';
+import localvals from './config/localvals';
 
 const app = express();
 
@@ -31,7 +31,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
-exsession(app);
+app.use(session);
 
 app.use(flash());
 
@@ -40,34 +40,8 @@ app.use(passport.session());
 
 csurf(app);
 
-// global ejs template variables
-app.use((req: Request, res: Response, next: NextFunction) => {
-    res.locals.application_name = process.env.APP_NAME || 'App';
-    res.locals.rootpath = basepath.rootpath;
-    res.locals.hpurl = basepath.hpurl;
-    res.locals.org_name = process.env.ORG_NAME || '';
-    res.locals.org_year = process.env.ORG_YEAR || '';
-    res.locals.org_logourl = process.env.ORG_LOGO_URL || '';
-    res.locals.isAuth = req.isAuthenticated();
-    res.locals.refurl = req.headers.referer || req.get('referer');
-    res.locals.current_path = req.path;
-    res.locals.discord_url = process.env.DISCORD_URL || '';
-
-    const defaultAvatarPath: string = path.join(__dirname, 'public', 'images', 'avatar', 'default');
-    const randomAvatarFileName = getRandomFileName(defaultAvatarPath);
-    res.locals.avatar_path = path.join('images', 'avatar', 'default', randomAvatarFileName);
-
-    if (req.isAuthenticated()) {
-        const user = req.user as any;
-        if (user.custom_avatar) {
-            res.locals.avatar_path = user.custom_avatar;
-        } else if (user.avatar) {
-            res.locals.avatar_path = user.avatar;
-        }
-    }
-
-    next();
-});
+// global variables for giving to ejs template
+app.use(localvals);
 
 // router
 app.use('/', indexRouter);
