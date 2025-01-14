@@ -1,11 +1,7 @@
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
+import './';
 import knex from '../db/knex';
-import * as dotenv from 'dotenv';
-import * as path from 'path';
-
-const envPath = path.resolve(__dirname, '../.env');
-dotenv.config({ path: envPath });
 
 const secret = process.env.JWT_SECRET || 'jwtsecret';
 

@@ -1,10 +1,6 @@
-import * as dotenv from 'dotenv';
-import * as path from "path";
 import nodemailer from 'nodemailer';
-
-const envPath = path.resolve(__dirname, '../../.env');
-dotenv.config({ path: envPath });
-
+import * as path from "path";
+import '../config';
 import { renderTemplate } from '../util/template';
 import basepath from '../util/basepath';
 

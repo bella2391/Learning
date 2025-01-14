@@ -1,10 +1,5 @@
-import * as dotenv from 'dotenv';
-import * as path from 'path';
-
-const envPath = path.resolve(__dirname, '../.env');
-dotenv.config({ path: envPath });
-
 import { Knex } from 'knex';
+import './config';
 
 const knexConfig: { [key: string]: Knex.Config } = {
     development: {

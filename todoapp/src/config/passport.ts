@@ -1,12 +1,7 @@
-import * as dotenv from 'dotenv';
-import * as path from 'path';
-
-const envPath = path.resolve(__dirname, '../.env');
-dotenv.config({ path: envPath });
-
 import passport from 'passport';
-import knex from '../db/knex';
 import bcrypt from 'bcrypt';
+import './';
+import knex from '../db/knex';
 import User from '../models/user';
 import basepath from '../util/basepath';
 import { sendOneTimePass } from '../mail/mail';

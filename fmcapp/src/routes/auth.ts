@@ -1,13 +1,8 @@
-import * as dotenv from 'dotenv';
-import * as path from 'path';
-
-const envPath = path.resolve(__dirname, '../.env');
-dotenv.config({ path: envPath });
-
 import express, { Request, Response } from 'express';
 import passport from 'passport';
-import basepath from '../util/basepath'
 import { JwtPayload } from 'jsonwebtoken';
+import '../config';
+import basepath from '../util/basepath';
 import knex from '../db/knex';
 import authenticateJWT, { generateToken, getToken } from '../config/jwt';
 import { sendVertificationEmail } from '../mail/mail';
