@@ -48,7 +48,8 @@ SUCCESS_REDIRECT=/
 
 ## Database
 
-Unfortunately, only MySQL is supported since I have only used MySQL. Please see [create_tables.sql](todoapp/create_tables.sql) for the query.
+Unfortunately, only MySQL is supported since I have only used MySQL.  
+Please see [create_tables.sql](todoapp/create_tables.sql) for the query.
 
 ## Role of learning directory
 
