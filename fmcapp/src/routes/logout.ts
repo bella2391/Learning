@@ -1,5 +1,5 @@
 import express, { Request, Response, NextFunction } from 'express';
-import basepath from '../util/basepath';
+import basepath from '../utils/basepath';
 
 const router: express.Router = express.Router();
 
@@ -8,8 +8,9 @@ router.get('/', (req: Request, res: Response, next: NextFunction) => {
         if (err) {
             return next(err);
         }
+
+        res.redirect(`${basepath.rootpath}/`);
     });
-    res.redirect(`${basepath.rootpath}/`);
 });
 
 export default router;
