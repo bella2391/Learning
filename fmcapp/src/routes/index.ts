@@ -4,13 +4,11 @@ import signupRouter from './signup';
 import signinRouter from './signin';
 import logoutRouter from './logout';
 import authRouter from './auth';
-import basepath from '../util/basepath';
+import basepath from '../utils/basepath';
 
 const router: express.Router = express.Router();
 
 router.get('/', async (req: Request, res: Response, _: NextFunction) => {
-    console.log(req.path);
-
     if (req.session.views) {
         req.session.views++;
         console.log("someone views count: ", req.session.views);

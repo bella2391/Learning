@@ -4,7 +4,7 @@ import signupRouter from './signup';
 import signinRouter from './signin';
 import logoutRouter from './logout';
 import authRouter from './auth';
-import basepath from '../util/basepath';
+import basepath from '../utils/basepath';
 
 const router: express.Router = express.Router();
 
