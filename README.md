@@ -3,11 +3,22 @@
 ## Description - ToDoApp
 
 Can log in via google, twitter, discord.  
+![alt text](https://github.com/bella2391/branding/blob/master/explain/learning/js_ts/login_form.png)  
+After login successfully, redirecting.  
+![alt text](https://github.com/bella2391/branding/blob/master/explain/learning/js_ts/redirect.png)  
+Can write todo list.  
+![alt text](https://github.com/bella2391/branding/blob/master/explain/learning/js_ts/todo.png)
 
 ## Reference
 
 The main for ToDoApp is [”Introduction to Creating Web Applications with Node.js”](https://zenn.dev/wkb/books/node-tutorial).  
 For details, please refer to [link.txt](/learning/link.txt).
+
+## Comment
+
+Many things I added after the fact to make it usable in a production environment.  
+For example, I think the csrf countermeasure is perfect.  
+Want to know more about middleware quickly: [~/middlewares](todoapp/src/middlewares)
 
 ## Env
 
