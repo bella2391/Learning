@@ -86,7 +86,8 @@ if (!googleClientId || !googleClientSecret || !googleCallbackURL) {
 passport.use(new GoogleStrategy({
     clientID: googleClientId,
     clientSecret: googleClientSecret,
-    callbackURL: googleCallbackURL
+    callbackURL: googleCallbackURL,
+    scope: ['profile', 'email'],
 }, async (accessToken, _, profile, done) => {
     try {
         const existingUser = await knex('users').where({ googleId: profile.id }).first();
@@ -153,7 +154,7 @@ passport.use('x', new XStrategy({
 }));
 
 import { IVerifyOptions, Strategy as LocalStrategy } from 'passport-local';
-import { generateToken } from '../middlewares/jwt';
+import { generateToken } from './jwt';
 
 passport.use(new LocalStrategy({
     usernameField: 'username',

@@ -1,7 +1,7 @@
 import passport from 'passport';
-import knex from '../db/knex';
 import bcrypt from 'bcrypt';
 import '../config';
+import knex from '../db/knex';
 import User from '../models/user';
 import basepath from '../utils/basepath';
 import { sendOneTimePass } from '../controllers/emailController';
@@ -86,7 +86,8 @@ if (!googleClientId || !googleClientSecret || !googleCallbackURL) {
 passport.use(new GoogleStrategy({
     clientID: googleClientId,
     clientSecret: googleClientSecret,
-    callbackURL: googleCallbackURL
+    callbackURL: googleCallbackURL,
+    scope: ['profile', 'email'],
 }, async (accessToken, _, profile, done) => {
     try {
         const existingUser = await knex('users').where({ googleId: profile.id }).first();
