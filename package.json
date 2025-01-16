@@ -17,7 +17,6 @@
     "start:fmcapp:independence": "ts-node --files ./fmcapp/src/bin/www.ts"
   },
   "dependencies": {
-    "@types/serve-favicon": "^2.5.7",
     "bcrypt": "^5.1.1",
     "connect-flash": "^0.1.1",
     "connect-session-sequelize": "^7.1.7",
@@ -68,6 +67,7 @@
     "@types/passport-google-oauth20": "^2.0.16",
     "@types/passport-local": "^1.0.38",
     "@types/passport-twitter": "^1.0.40",
+    "@types/serve-favicon": "^2.5.7",
     "@typescript-eslint/eslint-plugin": "^8.18.1",
     "@typescript-eslint/parser": "^8.18.1",
     "body-parser": "^1.20.3",
