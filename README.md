@@ -41,6 +41,8 @@ SMTP_PASS=smtpsecret
 JWT_SECRET=randomsecret
 
 APP_NAME=Sample App
+
+SUCCESS_REDIRECT=/
 ```
 
 ## Learning Directory
