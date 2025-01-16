@@ -3,9 +3,8 @@ const nodeExternals = require('webpack-node-externals');
 const path = require('path');
 const fs = require("fs");
 
-//const BUILD_ROOT = path.join(__dirname, '../dist');
-const BUILD_ROOT = path.join(__dirname, '../../todoapp/src/public/javascripts');
-const BUILD_ROOT2 = path.join(__dirname, '../../fmcapp/src/public/javascripts');
+const BUILD_ROOT = path.join(__dirname, '../dist');
+const BUILD_ROOT2 = path.join(__dirname, '../../todoapp/src/public/javascripts');
 const SRC_ROOT = path.join(__dirname, '../src');
 
 module.exports = {

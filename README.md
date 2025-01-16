@@ -1,12 +1,13 @@
 # Java-TypeScript
 
-## Description
+## Description - ToDoApp
 
-The `express` module was used to host the server environment on the back end, and the `webpack` module was used to develop on the front end for differentiation.
+Can log in via google, twitter, discord.  
 
-## Note
+## Reference
 
-For safety, `typescript` is used in the production environment.
+The main for ToDoApp is [”Introduction to Creating Web Applications with Node.js”](https://zenn.dev/wkb/books/node-tutorial).  
+For details, please refer to [link.txt](/learning/link.txt).
 
 ## Env
 
@@ -45,9 +46,21 @@ APP_NAME=Sample App
 SUCCESS_REDIRECT=/
 ```
 
-## Learning Directory
+## Database
 
-- `link.txt`:
+Unfortunately, only MySQL is supported since I have only used MySQL. Please see [create_tables.sql](todoapp/create_tables.sql) for the query.
+
+## Role of learning directory
+
+- [link.txt](learning/link.txt):
  Links referenced to create this repository
-- `cmd.txt`:
+- [cmd.txt](learning/cmd.txt):
  A collection of commands you may use later
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.txt](LICENSE.txt)
+
+## Credits
+
+This project uses other external assets someone creates - see the [CREDITS.txt](CREDITS.txt)
