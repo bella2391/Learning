@@ -1,15 +1,15 @@
 import express, { Request, Response, NextFunction } from 'express';
-import knex from '../db/knex';
 import bcrypt from 'bcrypt';
-import basepath from '../util/basepath';
+import knex from '../db/knex';
+import { requireNonLogin } from '../middlewares/checker';
 
 const router: express.Router = express.Router();
 
-router.get('/', (req: Request, res: Response, _: NextFunction) => {
+router.get('/', (_: Request, res: Response, __: NextFunction) => {
     res.render('signup', { title: 'Sign up' });
 });
 
-router.post('/', (req: Request, res: Response, _: NextFunction) => {
+router.post('/', requireNonLogin, (req: Request, res: Response, _: NextFunction) => {
     const isAuth: boolean = req.isAuthenticated();
     const username: string = req.body.username;
     const password: string = req.body.password;
@@ -56,7 +56,7 @@ router.post('/', (req: Request, res: Response, _: NextFunction) => {
                 errorMessage: [err.sqlMessage],
                 isAuth: isAuth,
             })
-        })
+        });
 })
 
 export default router;
