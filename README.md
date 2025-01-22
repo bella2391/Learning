@@ -55,6 +55,8 @@ JWT_SECRET=randomsecret
 APP_NAME=Sample App
 
 SUCCESS_REDIRECT=/
+
+PROXY_REVERSE_PATH=/dev
 ```
 
 ## Database

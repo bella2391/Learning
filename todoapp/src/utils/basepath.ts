@@ -41,7 +41,7 @@ function getRootURL(): string {
 
 function getRootPath(): string {
     return process.env.NODE_ENV === 'production'
-        ? process.env.PROXY_REVERSE_PASS || '/dev'
+        ? process.env.PROXY_REVERSE_PATH || '/dev'
         : '';
 }
 

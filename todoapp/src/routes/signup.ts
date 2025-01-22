@@ -1,5 +1,5 @@
 import express, { Request, Response, NextFunction } from 'express';
-import knex from '../db/knex';
+import knex from '../config/knex';
 import bcrypt from 'bcrypt';
 import { requireNonLogin } from '../middlewares/checker';
 
