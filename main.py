@@ -1,5 +1,4 @@
 import discord
-
 from config.config import TOKEN
 
 intents = discord.Intents.default()
