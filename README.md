@@ -17,7 +17,7 @@ For details, please refer to [link.txt](/learning/link.txt).
 ## Comment
 
 Many things I added after the fact to make it usable in a production environment.  
-For example, I think the csrf countermeasure is perfect.  
+For example, I think csrf countermeasure is perfect.  
 Want to know more about middleware quickly: [~/middlewares](todoapp/src/middlewares)
 
 ## Env
