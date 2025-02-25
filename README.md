@@ -11,3 +11,5 @@ There are other repositories for learning.
 * [Python](https://github.com/bella2391/Learning/tree/python)
 
 * [Rust](https://github.com/bella2391/Learning/tree/rust)
+
+* [C](https://github.com/bella2391/Learning/tree/c)
