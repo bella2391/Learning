@@ -34,6 +34,21 @@ int main() {
     for (i = 0; i < 10; i++) {
         count();
     }
+
+    register int k = 0;
+
+    printf("%s(%d): %s\n", __FILE__, __LINE__, __func__);
+
+    int e[3];
+    e[0] = 123;
+    e[1] = 456;
+    e[2] = 789;
+
+    int k1 = 123;
+    int *k2 = &k1;
+    printf("%d\n", *k2);
+    *k2 = 321;
+    printf("%d\n", k1);
 }
 
 void count() {
