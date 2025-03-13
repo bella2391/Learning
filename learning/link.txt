@@ -1,5 +1,5 @@
 # current task
-set environment, including Neovims
+set environment, including Neovims: trying by tohoho series for test and next
 
 # official docs
 https://docs.scala-lang.org/ja/
