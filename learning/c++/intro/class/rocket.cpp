@@ -4,9 +4,9 @@ using namespace std;
 class Rocket {
     int fuel;
     int velocity;
-    public:
-        Rocket(int);
-        void accelerate();
+public:
+    Rocket(int);
+    void accelerate();
 };
 
 Rocket::Rocket(int x) : fuel(x), velocity(0){}

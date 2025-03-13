@@ -3,9 +3,9 @@ using namespace std;
 
 class Glass {
     int amount;
-    public:
-        Glass() : amount(10) {}
-        void supply_water();
+public:
+    Glass() : amount(10) {}
+    void supply_water();
 };
 
 void Glass::supply_water() {

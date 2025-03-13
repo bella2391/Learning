@@ -4,9 +4,9 @@ using namespace std;
 
 class Dog {
     string name;
-    public:
-        Dog(string); // Dog(string s)の省略形
-        void naku() const;
+public:
+    Dog(string); // Dog(string s)の省略形
+    void naku() const;
 };
 
 Dog::Dog(string s) : name(s){}

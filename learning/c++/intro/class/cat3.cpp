@@ -4,9 +4,9 @@ using namespace std;
 
 class Cat {
     string name;
-    public:
-        Cat(string s); // Cat(string); でも可
-        void naku() const;
+public:
+    Cat(string s); // Cat(string); でも可
+    void naku() const;
 };
 
 Cat::Cat(string s) : name(s){}
