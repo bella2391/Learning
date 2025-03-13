@@ -1,3 +1,8 @@
+*.class
+*.cache
+**/project/**/target/
+**/project/**/metals.sbt
+**/target/
 # quoted from https://github.com/scala/scala/blob/2.13.x/.gitignore
 #
 # Are you tempted to edit this file?
@@ -69,3 +74,4 @@ project/**/metals.sbt
 
 .bsp
 .history
+
