@@ -1,0 +1,12 @@
+# current task
+set environment, including Neovims
+
+# official docs
+https://docs.scala-lang.org/ja/
+
+# recommended by my friend
+https://scala-text.github.io/scala_text/
+
+# tohoho
+https://www.tohoho-web.com/ex/scala.html#what
+
