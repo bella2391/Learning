@@ -7,9 +7,8 @@ I created this repository simply because I wanted to do something with this lang
 There are other repositories for learning.  
 
 * [Javascript/Typescript](https://github.com/bella2391/Learning/tree/js/ts)
-
 * [Python](https://github.com/bella2391/Learning/tree/python)
-
 * [Rust](https://github.com/bella2391/Learning/tree/rust)
+* [C/C++](https://github.com/bella2391/Learning/tree/c)
+* [Scala](https://github.com/bella2391/Learning/tree/scala)
 
-* [C](https://github.com/bella2391/Learning/tree/c)
