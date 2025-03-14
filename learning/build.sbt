@@ -1,2 +1,3 @@
-lazy val gemini = project.in(file("gemini")) // geminiディレクトリをサブプロジェクトとして定義
+lazy val gemini = project.in(file("gemini"))
+lazy val tohoho = project.in(file("tohoho"))
 
